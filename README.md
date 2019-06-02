@@ -1,15 +1,20 @@
-# dexDB
+# dexAPI
 
-Decentralized exchange database
+Decentralized exchange API
 
-The concept:
+Proprietary clusters
 
-Two files, one binary and one configuration, the latter required only if the user needs to change some default configuration (eg: Listen port)
+Higher Response Speed
+High Availability
+Censorship-resistant (no *)
+Large DDos resistant API (no **)
 
-The configuration file and database will be created on the first execution of the binary, similar to most wallets of Crypto currencies.
+* proprietary structures are not resistant to censorship, can be external pressure or even the owner. 
+** is limited to the number of clusters and parallel networks that the company can maintain. 
 
-When you start the application, it will searching for other nodes that contain a copy of the database and will download it, after this step the synchronization will occur on demand. The goal of this process is to make api fully portable, easy to install, both on servers and desktops, and make the ecosystem resistant to censorship.
+Volunteer clusters & networks (last stage)
 
-The initial version is scheduled for August 2019 and will transparently replace the api currently used.
+Censorship-resistant API *
+Large DDos resistant API *
 
-The binaries will initially be made available for Linux and Windows and the source code will be made available on GitHub.
+* everything depends only on the quantity and diversity of participants.
