@@ -1,4 +1,4 @@
-# dexAPI
+# API
 
 Decentralized exchange API
 
