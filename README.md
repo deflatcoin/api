@@ -1,4 +1,4 @@
-# API
+# DECENTRALIZED API & TOOLS
 
 Decentralized exchange API
 
