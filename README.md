@@ -4,10 +4,9 @@ Decentralized exchange API
 
 Proprietary clusters *
 
-High Response Speed *
-High Availability **
+High response speed and high availability **
 
-* proprietary structures are not resistant to censorship, can be external pressure or even the owner.
+* proprietary structures are not resistant to censorship.
 
 ** is limited to the number of clusters and parallel networks that the company can maintain. 
 
