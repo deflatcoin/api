@@ -2,12 +2,10 @@
 
 Decentralized exchange API
 
-Proprietary clusters
+Proprietary clusters *
 
-Higher Response Speed
-High Availability
-Censorship-resistant (no *)
-Large DDos resistant API (no **)
+High Response Speed *
+High Availability **
 
 * proprietary structures are not resistant to censorship, can be external pressure or even the owner.
 
@@ -15,7 +13,4 @@ Large DDos resistant API (no **)
 
 Volunteer clusters & networks (last stage)
 
-Censorship-resistant API *
-Large DDos resistant API *
-
-* everything depends only on the quantity and diversity of participants.
+Censorship-resistant and very high availability ecosystem.
