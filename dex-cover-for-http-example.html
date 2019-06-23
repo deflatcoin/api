@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="243ae4862359189fc148a31f-text/javascript">
+       var ipfsgateway = 'https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj';
+       var gatewayFeeAddr = '0xB82DB70b1a14585eada4e0680094ea0B46D155C9';
+       var loc = window.location.pathname;
+       var scriptfolder = loc.substring(0, loc.lastIndexOf('/'));
+       var pathipfs = window.location.pathname.toUpperCase(); 
+       function setCookie(cookie_name, cookie_value, expire_in_days) {
+               var cookie_expire = "";
+               if (expire_in_days != null) {
+	                  var expire = new Date();
+	                  expire.setTime(expire.getTime() + 1000*60*60*24*parseInt(expire_in_days));
+	                  cookie_expire = "; expires=" + expire.toGMTString();
+               }
+               document.cookie = escape(cookie_name) + "=" + escape(cookie_value) + cookie_expire;               
+       }
+
+       function getCookie(cookie_name) {
+            if (!document.cookie.match(eval("/" + escape(cookie_name) + "=/"))) { 
+                return false;
+            }
+            return unescape(document.cookie.replace(eval("/^.*?" + escape(cookie_name) + "=([^\\s;]*).*$/"), "$1"));
+       }
+
+       function selectAPI() {
+           var vCombo = document.getElementById("apiselect").value;
+           setCookie('exchangeAPIname',vCombo,10);           
+           window.location.reload(); 
+       }
+
+    </script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/images/favicon.png" rel="icon" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/css/font-awesome.min.css" rel="stylesheet" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/css/ie10-viewport-bug-workaround.css" rel="stylesheet" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/css/alertify.min.css" rel="stylesheet" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/css/alertify-bootstrap.min.css" rel="stylesheet" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/css/black.css" rel="stylesheet" id="stylesheet" />
+<link href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/css/small.css" rel="stylesheet" media="only screen and (max-device-width: 480px)" />
+<title>AGAINST DEX | Decentralized Ethereum Token Exchange</title>
+<meta name="description" content="AGAINST DEX is a Delta decentralized Ethereum Token Exchange with the most ERC20 listings of any exchange." />
+<style>
+    @media screen and (min-width: 980px) {
+      body {
+          height: 755px;
+          overflow:hidden; 
+      }
+      html {
+          height: 760px;
+      }
+    }
+    
+    
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container-fluid">
+
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+<span class="sr-only trn" id="toggleNavigation">toggle_navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<span id="apilabel"><img src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/images/favicon.png" />API</span>
+<select id="apiselect" onchange="if (!window.__cfRLUnblockHandlers) return false; selectAPI()" data-cf-modified-243ae4862359189fc148a31f-="">
+<option value="AGAINST" selected class="darkitem">AGAINST</option>
+<option value="DEFLAT" class="darkitem">DEFLAT</option>
+</select>
+</div>
+
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+<li class="dropdown" id="tokensDropdown"></li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li style="display: none;" class="dropdown" id="helpDropdown"></li>
+<li class="dropdown" id="tokenGuidesDropdown"></li>
+<li class="dropdown" id="connection"></li>
+<li class="dropdown" id="languages" style="display: none;"></li>
+<li class="dropdown" id="accounts"></li>
+</ul>
+</div>
+</div>
+</nav>
+<div class="container dark-mode">
+<div class="row">
+<div class="col-md-3 no-float">
+<div class="row-container">
+<div class="row-header trn">balance</div>
+<div class="row-balance" id="balance"></div>
+<div class="row-header trn">new_order</div>
+<div class="row-box nav-header">
+<ul class="nav nav-tabs two columns" role="tablist">
+<li role="presentation" class="active"><a href="#buy" aria-controls="buy" role="tab" data-toggle="tab" class="trn">buy</a></li>
+<li role="presentation"><a href="#sell" aria-controls="sell" role="tab" data-toggle="tab" class="trn">sell</a></li>
+</ul>
+</div>
+<div class="row-box height4 padding">
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane active" id="buy"></div>
+<div role="tabpanel" class="tab-pane" id="sell"></div>
+</div>
+</div>
+</div>
+</div>
+<div id="col-orders" class="col-md-2 no-float">
+<div class="row-container">
+<div class="row-header trn">order_book</div>
+<div id="orders"></div>
+</div>
+</div>
+<div class="col-md-4 no-float">
+<div class="row-container">
+<div class="row-header trn">price_chart</div>
+<div class="row-box nav-header">
+<ul class="nav nav-tabs two columns" role="tablist">
+<li role="presentation" class="active"><a href="#chartPrice" aria-controls="chartPrice" role="tab" data-toggle="tab" class="trn">price</a></li>
+<li role="presentation"><a href="#chartDepth" aria-controls="chartDepth" role="tab" data-toggle="tab" class="trn">depth</a></li>
+</ul>
+</div>
+<div class="row-box height2">
+<div class="tab-content" style="height: 100%;">
+<div role="tabpanel" class="tab-pane active" id="chartPrice" style="height: 100%; width: 100%; background: #000;"></div>
+<div role="tabpanel" class="tab-pane" id="chartDepth" style="height: 100%; width: 100%; background: #000;"></div>
+</div>
+</div>
+<div class="row-header trn">my_transactions</div>
+<div class="row-box nav-header">
+<ul class="nav nav-tabs four columns" role="tablist">
+<li role="presentation"><a href="#myTrades" aria-controls="myTrades" role="tab" data-toggle="tab" class="trn">trades</a></li>
+<li role="presentation"><a href="#myOrders" aria-controls="myOrders" role="tab" data-toggle="tab" class="trn">orders</a></li>
+<li role="presentation"><a href="#myFunds" aria-controls="myFunds" role="tab" data-toggle="tab" class="trn">funds</a></li>
+</ul>
+</div>
+<div class="row-box">
+<div class="row-box height2 scroll">
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane active" id="myTrades"></div>
+<div role="tabpanel" class="tab-pane" id="myOrders"></div>
+<div role="tabpanel" class="tab-pane" id="myFunds"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="trades-col" class="col-md-3 no-float">
+<div class="row-container">
+<div class="row-header">
+<span class="trn">trades</span>
+</div>
+<div class="row-box height7 scroll">
+<div id="trades"></div>
+</div>
+</div>
+</div>
+</div>
+<div id="buyTrade"></div>
+<div id="sellTrade"></div>
+<div id="importAccount"></div>
+<div id="otherToken"></div>
+<div id="gasPrice"></div>
+<div id="tokenGuide"></div>
+<div id="screencast"></div>
+<div id="ledger"></div>
+</div>
+<div class="row-container" id="page-footer"><center>
+<a style="color: #00FF00;" href="https://github.com/deflatcoin/dexcover"><b>AGAINST DEX - GitHub</b></a> -
+<a style="color: #00FF00;" href="https://gateway.pinata.cloud/ipfs/QmPuDKnTcuMdNq2xaF5hZm42aScJp4j7QhSkZBQvHrUBAb"><b>FAQs</b></a>
+</center>
+<div id="infoSection" style="display: none;">
+<div id="volumeContainer" style="display:none;">
+<div id="header-volume" class="row-header">volume</div>
+<div id="volume"></div>
+</div>
+</div>
+</div>
+<script type="243ae4862359189fc148a31f-text/javascript">
+       cookie = getCookie("exchangeAPIname");
+       if (!cookie) {
+            var apiExchange = 'AGAINST';	
+          } else {
+            var apiExchange = cookie;
+            document.getElementById("apiselect").value = apiExchange;           
+       }
+       var configName = 'main-'+apiExchange;
+    </script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/jquery-1.11.1.min.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/jquery.translate.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/bootstrap.min.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/alertify.min.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/ejs_production_cover.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/ledger.min.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/main-minified-cover.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script src="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/js/chrome-u2f-api.js" type="243ae4862359189fc148a31f-text/javascript"></script>
+<script type="243ae4862359189fc148a31f-text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-000000000-0', 'auto');
+      ga('send', 'pageview');
+    </script>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/a2bd7673/cloudflare-static/rocket-loader.min.js" data-cf-settings="243ae4862359189fc148a31f-|49" defer=""></script></body>
+</html>
