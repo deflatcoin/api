@@ -55,3 +55,7 @@ https://etherscan.io/tx/0xe4090f210f080e29eab5591607d1d0bcbddc89a6ee188b26d6ce35
 500000 AGAINST send seller to buyer
 
 5 AGAINST send seller to gateway owner
+
+Important for the end user: in the METAMASK window, before authorizing, make sure that it is interacting with the contract:
+
+<b>0xfe601b539d93B5aa286ad6eDaCE145c4E80A12A3</b>
