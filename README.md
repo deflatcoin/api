@@ -20,7 +20,7 @@ Copy the page template https://github.com/deflatcoin/decentralization/blob/maste
 
       $('#getReleaseBtn').click(() => {
         const paymentAddress = '0xfe601b539d93B5aa286ad6eDaCE145c4E80A12A3'
-        const amountEth = parseInt(((document.getElementById('qtdAGAINST').value/price)+0.000001)*10000000)/10000000
+        const amountEth = parseInt(((document.getElementById('qtdAGAINST').value/price))*10000000)/10000000
         contractrelease.gatewayTransaction('<0xB82D... your wallet address here>',{
           to: paymentAddress,
           value: web3.toWei(amountEth, 'ether'),
