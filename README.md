@@ -46,7 +46,7 @@ WP integrated example: https://deflatcoin.io/embed-release-gateway-demo/
 Full Page Example: https://deflatcoin.io/full-page-gateway-demo/
 
  
-Contract transaction example: 
+<b>Contract transaction example:</b> 
 
 https://etherscan.io/tx/0xe4090f210f080e29eab5591607d1d0bcbddc89a6ee188b26d6ce35182b95e6dc
 
