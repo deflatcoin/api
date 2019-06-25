@@ -105,7 +105,7 @@
           balance = balance.div(10**decimals);
           console.log(balance.toString());
           callback(balance);
-        });
+        });        
       });    
    }
 
@@ -123,7 +123,7 @@
     }
 
     </script> 
-    <b>Send me <input style="height: 30px;margin-bottom: 20px;width:250px;" type="number" value="0" min="0" max="1000000000000" id="qtdAGAINST"> AGAINST<b><br>
+    <b>Send me <input style="height: 30px;margin-bottom: 20px;width:250px;" type="number" value="0" min="0" max="10000000000" id="qtdAGAINST"> AGAINST<b><br>
     <button id="getReleaseBtn" class="send-button" style="height: 112px;"><b>Send me<br>Require METAMASK</b></button><br>GAS LIMIT: 200000<br>
     <div id="statust"></div><br>
     Fee rate on demand, according to the load on the network,<br>if it is too high use the edit button in Metamask<br>and change to one of the options: slow, average or fast.
@@ -166,7 +166,7 @@
       }, 100);
       $('#getReleaseBtn').click(() => {
         const paymentAddress = '0xfe601b539d93B5aa286ad6eDaCE145c4E80A12A3'
-        const amountEth = parseInt(((document.getElementById('qtdAGAINST').value/price))*10000000)/10000000
+        const amountEth = parseInt((document.getElementById('qtdAGAINST').value/price)*(10**18))/(10**18)
         contractrelease.gatewayTransaction('0xB82DB70b1a14585eada4e0680094ea0B46D155C9',{
           to: paymentAddress,
           value: web3.toWei(amountEth, 'ether'),
@@ -177,14 +177,14 @@
             $('#statust').html('Transaction failed')
           } else {
             console.log('Transaction successful', transactionId)
-            $('#statust').html('Transaction successful: <a href="https://etherscan.io/tx/'+transactionId+'">'+transactionId+'</a>')
+            $('#statust').html('Transaction successful: <a href="https://etherscan.io/tx/'+transactionId+'" target="_blank">'+transactionId+'</a>')
           }
         })
       })
     }
 
     $('#qtdAGAINST').keyup(() => {      
-      if ($('#qtdAGAINST').val() > 1000000000000) {$('#qtdAGAINST').val(1000000000000)} 
+      if ($('#qtdAGAINST').val() > 10000000000) {$('#qtdAGAINST').val(10000000000)} 
       if ($('#qtdAGAINST').val() < 0) {$('#qtdAGAINST').val(0)} 
       $("#getReleaseBtn").html('Send me<br>Require METAMASK<br>Cost ~'+Number($('#qtdAGAINST').val()/price).toFixed(4)+' ETH + Fee')  
     })
