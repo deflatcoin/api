@@ -45,6 +45,8 @@ WP integrated example: https://deflatcoin.io/embed-release-gateway-demo/
 
 Full Page Example: https://deflatcoin.io/full-page-gateway-demo/
 
+IPFS Link: https://gateway.pinata.cloud/ipfs/QmQoM511owRMt6PX2BV91yCHLoMaJsoEd2A1Pg9LJ7j7xN
+
  
 <b>Contract transaction example:</b> 
 
