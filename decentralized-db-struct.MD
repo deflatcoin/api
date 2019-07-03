@@ -13,14 +13,14 @@
       uint fillDate;      
     }
 	
-	struct market {  
+    struct market {  
       bool exists;
       address tokenPair;
-	    mapping(uint => order) orders;
+      mapping(uint => order) orders;
       mapping(uint => done) dones;
-	}
+    }
 
-  struct token {
+    struct token {
       address tokenBase;
       string name;
       string symbol;
@@ -30,7 +30,7 @@
       mapping(address => market) markets;
     }
 	
-  mapping(uint => address) public index;
-	mapping(address => token) public tokens;
-  mapping(address => bool) public exists;
+    mapping(uint => address) public index;
+    mapping(address => token) public tokens;
+    mapping(address => bool) public exists;
   
