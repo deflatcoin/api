@@ -1,4 +1,4 @@
-# DECENTRALIZED API & TOOLS
+# DECENTRALIZED API, TOOLS & DATABASE 
 
 Decentralized exchange API
 
@@ -13,6 +13,20 @@ High response speed and high availability ***
 Volunteer clusters & networks (last stage)
 
 Censorship-resistant and very high availability ecosystem.
+
+# Under development
+
+On Chain Database
+
+- No server;
+- Anyone can add an Ethereum token;
+- Anyone can add a market to any token;
+- Like / dislike voting system to assess reputation. One vote per wallet;
+- The contract does not censor any token, but the gateway owner can use the reputation as a filter if he so desires;
+- The cost of warehousing per transaction can be offset by low brokerage fees;
+- No tokens custody is required. Great for anyone who wants to keep their orders for a long time, waiting for the asset to reach the desired price (Holder traders);
+-No key or signature is stored in the contract;
+- Future expandable to support a payment system that accepts any Ethereum token.
 
 # Create an AGAINST release gateway
 
