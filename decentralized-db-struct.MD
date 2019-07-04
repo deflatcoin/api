@@ -1,3 +1,4 @@
+<pre>
     struct order {
       address orderOwner;
       uint rate;
@@ -33,4 +34,5 @@
     mapping(uint => address) public index;
     mapping(address => token) public tokens;
     mapping(address => bool) public exists;
+</pre>
   
