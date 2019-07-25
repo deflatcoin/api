@@ -32,6 +32,7 @@ On Chain Database
 
 Copy the page template https://github.com/deflatcoin/decentralization/blob/master/against-partner-release.html and in contractrelease.gatewayTransaction change address param by your wallet address, in it you will receive the equivalent of 1% of the sale in AGAINST, for example if a transaction is made in the amount of 1,000,000 AGAINST you will receive 10,000 AGAINST in your wallet.
 
+<pre>
       $('#getReleaseBtn').click(() => {
         const paymentAddress = '0xfe601b539d93B5aa286ad6eDaCE145c4E80A12A3'
         const amountEth = parseInt(((document.getElementById('qtdAGAINST').value/price))*10000000)/10000000
@@ -50,7 +51,7 @@ Copy the page template https://github.com/deflatcoin/decentralization/blob/maste
         })
       })
     }
-    
+</pre>    
 Open a free account on an ipfs gateway, such as pinata.cloud or temporal.cloud (among others) and upload and pin the page, Done, now just share the generated link.
 
 You can also use the link to include page content on your site using the html embed tag
