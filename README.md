@@ -98,3 +98,44 @@ Require web3
     });
   }
 </pre>
+
+<b>Getting the token list from the database JS</b>
+<pre>
+  function listTokenMarkets() {
+    var html;
+    var i;      
+      addr = document.getElementById("tkaddress").value;  	  
+      baseName = document.getElementById("tkaddress").options[document.getElementById("tkaddress").selectedIndex].text;	   
+      exchangeContract.tokens.call(addr, function (err,token) {                      
+          baseDecimals = token[3];
+         baseSymbol = token[2];  		 
+      });    	       
+      getLikesBase();	  
+      document.getElementById("baseCoinTitle").innerText = baseName;
+      document.getElementById('baseCoin').value = addr;
+      document.getElementById("tkpairaddress").innerHTML = "";
+      if (addr != "SELECT") {      
+        exchangeContract.tokens.call(addr, function (err,token) {
+           baseDecimals = token[3]; 
+           baseSymbol = token[2];			
+           marketCount = token[6];  
+           if (token[6] == 0) {
+               document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
+           } else {
+               document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>SELECT PAIR COIN</option>";
+           }       
+           for (i=1; i <= marketCount; i++) {
+             exchangeContract.getPairByIndex.call(addr, i, function (err,market) {         
+               exchangeContract.tokens.call(market[0], function (err,token) {
+                  document.getElementById("tkpairaddress").innerHTML += "<option title='"+token[0]+"' value='"+token[0]+"'>"+token[1].toUpperCase()+"</option>";                
+               });    
+             });         
+           }
+        });
+
+     } else {
+       document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
+     }
+          
+  }
+</pre>
