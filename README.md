@@ -76,3 +76,25 @@ https://etherscan.io/tx/0xe4090f210f080e29eab5591607d1d0bcbddc89a6ee188b26d6ce35
 Important for the end user: in the METAMASK window, before authorizing, make sure that it is interacting with the contract:
 
 <b>0xfe601b539d93B5aa286ad6eDaCE145c4E80A12A3</b>
+
+# Servless Database
+
+<b>Getting the token list from the database JS</b>
+Require web3
+
+<pre>
+  function listTokens(container) {
+    exchangeContract.indexCount((error,indexCount) => {
+      var html;
+      document.getElementById(container).innerHTML += "<option title='SELECT' value='SELECT'>SELECT BASE COIN</option>";
+      var i;
+      for (i = 1; i <= indexCount; i++) {         
+            exchangeContract.index.call(i, function (err,addr) {
+              exchangeContract.tokens.call(addr, function (err,token) {             
+                document.getElementById(container).innerHTML += "<option title="+token[0]+" value="+token[0]+">"+token[1].toUpperCase()+"</option>";
+              });            
+            });           
+      }       
+    });
+  }
+</pre>
