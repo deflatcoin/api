@@ -142,7 +142,7 @@ https://against.network/newdex/ Select Ropsten Network (testnet)
   }
 </pre>
 
-<b>Entering an order</b>
+<b>Entering an order JS</b>
 
 <pre>
   function listOrders(clear) {
