@@ -83,6 +83,7 @@ Important for the end user: in the METAMASK window, before authorizing, make sur
 Require Metamask
 https://against.network/newdex/ Select Ropsten Network (testnet)
 
+Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/servlesDexContract.md
 
 <pre>
   function listTokens(container) {
