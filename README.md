@@ -80,7 +80,9 @@ Important for the end user: in the METAMASK window, before authorizing, make sur
 # Servless Database
 
 <b>Getting the token list from the database JS</b>
-Require web3
+Require Metamask
+https://against.network/newdex/ Select Ropsten Network (testnet)
+
 
 <pre>
   function listTokens(container) {
@@ -137,5 +139,67 @@ Require web3
        document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
      }
           
+  }
+</pre>
+
+<b>Entering an order</b>
+
+<pre>
+  function listOrders(clear) {
+    var html;
+    var i;
+      if (clear) {
+         clearFields();
+      } else {
+        document.getElementById("typeSell").innerHTML = '';
+        document.getElementById("typeBuy").innerHTML = '';
+      }
+      addr = document.getElementById("tkaddress").value; 
+	  baseName = document.getElementById("tkaddress").options[document.getElementById("tkaddress").selectedIndex].text;	
+      pairAddr = document.getElementById("tkpairaddress").value;
+      pairName = document.getElementById("tkpairaddress").options[document.getElementById("tkpairaddress").selectedIndex].text;	  
+	  exchangeContract.tokens.call(pairAddr, function (err,token) {                      
+          pairDecimals = token[3];
+          pairSymbol = token[2];  		 
+          getAllowanceAccount(pairAddr,web3.eth.accounts[0],'approvePairValue');
+      });
+      getLikesPair();   	
+      getMyBalance(addr,web3.eth.accounts[0], 'myBaseBalance'); 
+      getMyBalance(pairAddr,web3.eth.accounts[0], 'myPairBalance');   
+      document.getElementById("btnApproveBase").innerText = baseName;
+      document.getElementById("btnApprovePair").innerText = pairName;      
+      document.getElementById("sellHeader").innerHTML = '<td>THEY OFFER '+baseName+'</td><td>RATE<span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',true)"> SORT </span><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+pairName+'</td><td>FUNDS: '+baseName+'</td><td>ALLOWANCE '+baseName+'</td>';
+      document.getElementById("buyHeader").innerHTML =  '<td>THEY OFFER '+pairName+'</td><td>RATE<span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',true)"> SORT </span><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+baseName+'</td><td>FUNDS: '+pairName+'</td><td>ALLOWANCE '+pairName+'</td>';
+      if ((addr != "SELECT") && (pairAddr != "SELECT")) { 
+        getAllowanceAccount(addr,    web3.eth.accounts[0],'approveBaseValue');        
+        document.getElementById("btnBuy").disabled = false;
+        document.getElementById("btnBuy").style.background = '#11ABB0'; 
+        document.getElementById('pairSymbolSell').innerText = 'SEND '+baseName;
+        document.getElementById("pairSymbolSellPlaced").innerText = 'TO GET '+pairName;  
+        document.getElementById('pairSymbolBuy').innerText  = 'SEND '+pairName; 
+        document.getElementById("pairSymbolBuyPlaced").innerText = 'TO GET '+baseName;  	
+        exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
+           ordersCount = market[0];
+           for (i=1; i <= ordersCount; i++) {
+               exchangeContract.getOrders(addr, pairAddr, i, function (err, orders) {                              
+                     document.getElementById("typeSell").innerHTML += '<tr><td title="'+orders[1]+'">'+(orders[3]/(10**baseDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 1)">FILL</button></td><td>'+(((orders[3]/(10**baseDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="apairbalance'+orders[0]+'">'+getBalance(addr,orders[1],orders[0],'a')+'</td><td id="apairallowance'+orders[0]+'">'+getAllowance(pairAddr,addr,orders[1],exchangeAddr,orders[0], orders[1],'a',1,baseDecimals)+'</td></tr>';
+               });   
+           }
+        });    
+        exchangeContract.getPairByAddr(pairAddr, addr,  function (err,market) {
+           ordersCount = market[0];
+           if (market[2]) {
+               document.getElementById("btnSell").disabled = false;
+               document.getElementById("btnSell").style.background = '#11ABB0';                
+           }
+           for (i=1; i <= ordersCount; i++) {
+               exchangeContract.getOrders(pairAddr, addr, i, function (err, orders) {                              
+                     document.getElementById("typeBuy").innerHTML += '<tr><td title="'+orders[1]+'">'+(orders[3]/(10**pairDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 0)">FILL</button></td><td>'+(((orders[3]/(10**pairDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="bpairbalance'+orders[0]+'">'+getBalance(pairAddr,orders[1],orders[0],'b')+'</td><td id="bpairallowance'+orders[0]+'">'+getAllowance(addr,pairAddr,orders[1],exchangeAddr,orders[0], orders[1],'b',0,pairDecimals)+'</td></tr>';
+               });   
+           }
+        });                   
+     } else {
+       document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
+     }    
   }
 </pre>
