@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!-->
+
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+<meta charset="utf-8">
+<title>DEFLAT Serverless DEX</title>
+<meta name="description" content="Fully decentralized ecosystem">
+<meta name="author" content="DEFLAT TEAM">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/css/default.css">
+<link rel="stylesheet" href="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/css/layout.css">
+<link rel="stylesheet" href="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/css/media-queries.css">
+<link rel="stylesheet" href="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/css/animate.css">
+<link rel="stylesheet" href="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/css/prettyPhoto.css">
+<script src="https://gateway.pinata.cloud/ipfs/QmcDwQSqEAq9j4mehdUZTy2UTyNmULuA6kAmkFqyBZr6ag/libs/jquery-3.2.1/jquery.min.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/modernizr.js"></script>
+<link rel="shortcut icon" href="https://gateway.pinata.cloud/ipfs/QmTLWjJQmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/images/favicon.png">
+
+</head>
+<body>
+<div id="preloader">
+<div id="status">
+<img src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/images/preloader.gif" height="64" width="64" alt="preload">
+</div>
+</div>
+
+<header>
+<div class="logo">
+<a class="smoothscroll" href="#hero"><img style="position:relative; top: -7px;" alt="Deflat Logo" src="https://gateway.pinata.cloud/ipfs/QmNXFhpjBaZqRxVXDgxJ1W23J4htipcSfCwstcqr1S5TyS"></a>
+</div>
+<nav id="nav-wrap">
+<a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
+<a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
+</nav> 
+<span id="statust1" style="top:8px; margin-left: 8px;position: relative">Status: Idle</span>
+</header> 
+
+<section id="hero">
+<div class="row">
+<div id="wrapContainer">
+<span class="wrapLabel">WRAP &larr;&rarr; UNWRAP: <span id=ethBalance>0.000000000</span> ETH &larr;&rarr; <span id="wrapBalance">0.000000000</span> WETH<br><input id="amountToWrap" type="number" class="wrapInput" step="any" value="0">&rarr;</span><button class="wrapBtn" onclick="wrapEth()">WRAP</button><button class="wrapBtn"  onclick="unwrapEth()">UNWRAP</button><span class="wrapLabel">&larr;<input id="amountToUnwrap" type="number" class="wrapInput" step="any" value="0"></span>
+</div>
+<a href="" class="hlink" id="contractExplorerLink" target="_blank">CONTRACT</a>
+<a href="" class="hlink" id="accountExplorerLink" target="_blank">ACCOUNT EXPLORER</a>
+<a href="" class="hlink" id="baseExplorerLink" target="_blank">BASE EXPLORER</a>
+<a href="" class="hlink" id="pairExplorerLink" target="_blank">PAIR EXPLORER</a>
+<a href="" class="hlink" id="helpLink" target="_blank">HELP</a>
+<span id="actionFeeLabel">Action Fee: 0 ETH</span>
+
+
+<div class="likesC" id="likeBaseVotesC" title="Base Coin Score">
+<span><img src="like.png" onclick="sendTokenLike(addr)"></span><br>
+<span class="voteCount" id="likeBaseVotes">0</span>
+</div>
+
+<div class="likesC" id="diskikeBaseVotesC" title="Base Coin Score">
+<span><img src="dislike.png" onclick="sendTokenDislike(addr)"></span><br>
+<span class="voteCount" id="dislikeBaseVotes">0</span>
+</div>
+
+<div class="likesC" id="likePairVotesC" title="Pair Coin Score">
+<span><img src="like.png" onclick="sendTokenLike(pairAddr)"></span><br>
+<span class="voteCount" id="likePairVotes">0</span>
+</div>
+
+<div class="likesC" id="dislikePairVotesC" title="Pair Coin Score">
+<span><img src="dislike.png" onclick="sendTokenDislike(pairAddr)"></span><br>
+<span class="voteCount" id="dislikePairVotes">0</span>
+</div>
+
+</div>
+</section> 
+
+
+<section id='features'>
+<div id="headerOptionsContainer">
+<table class="approvalTable"><tr><td class="coin">
+<select id='tkaddress' onchange="listTokenMarkets();" style="position: relative;"></select>
+Approval value for trade<br>
+<input type="number" step="any" id="approveBaseValue" value="0" /><br>
+<button class="apBtn" id="btnApproveBase" onclick="approveExchange(addr,'approveBaseValue',baseDecimals);">APPROVE</button><br>
+Balance:<br><input type="number" step="any" id="myBaseBalance">
+</td><td class="coin">
+<select id='tkpairaddress' onchange="listOrders(true);listOrdersDones();" style="position: relative;"></select>
+Approval value for trade<br>
+<input type="number" step="any" id="approvePairValue" value="0" /><br>
+<button class="apBtn" id="btnApprovePair" onclick="approveExchange(pairAddr,'approvePairValue',pairDecimals);">APPROVE</button><br>
+Balance:<br><input type="number" step="any" id="myPairBalance">
+</td>
+<td class="offer">
+<span class="placedLabel" id="pairSymbolSell">BASE NOT SELECTED</span><br>
+Amount: <input type="number" onkeyup="calcTotalSell()" step="any" id="amountSellValue" value="0" /><br>
+Rate: <input type="number" onkeyup="calcTotalSell()" step="any" id="priceSellValue" value="1" /><br>
+<span class="placedLabel" id="pairSymbolSellPlaced">PAIR NOT SELECTED</span><br>
+Total: <input type="number" step="any" id="totalSellValue" onkeyup="calcRateSell()" value="0" />       
+<button id="btnSell" onclick="sendOrder(1)">SELL</button>
+</td>
+<td class="offer">
+<span class="placedLabel" id="pairSymbolBuy">PAIR NOT SELECTED</span><br>
+Amount: <input type="number" onkeyup="calcTotalBuy()" step="any" id="amountBuyValue" value="0" /><br>
+Rate: <input type="number" onkeyup="calcTotalBuy()" step="any" id="priceBuyValue" value="1" /><br>
+<span class="placedLabel" id="pairSymbolBuyPlaced">BASE NOT SELECTED</span><br>
+Total: <input type="number" step="any" id="totalBuyValue"  onkeyup="calcRateBuy()" value="0" />  
+<button id="btnBuy"  onclick="sendOrder(0)">BUY</button>
+</td></tr>
+</table>
+</div>
+
+<div class="designEx">
+  <center> 
+  <div style="color:#303030;">
+    <div id="container" style="height: 800px; width: 1000px;">
+      <div id="tokenListContainer" width="100%" style="background-color: #AAAAAA">                  
+      </div>
+      <div>             
+         <table class="tbheader"><tr id="sellHeader"></tr></table>  
+         <table id="typeSell"></table>             
+         <table class="tbheader"><tr id="buyHeader"></tr></table>
+         <table id="typeBuy"></table> 
+         <div id="orderFillForm"><h2>FILL ORDER</h2>
+            <input type="hidden" id="orderFillId"> 
+            <input type="hidden" id="orderBaseAddr"> 
+            <input type="hidden" id="orderPairAddr"> 
+            <input type="hidden" id="orderRawRate"> 
+            <input type="hidden" id="orderPairDecimals"> 
+            I Have: <input type='text' value='0x0' id='orderIHave' /><br>
+            I Want: <input type='text' value='0x0' id='orderIWant' /><br>
+            <span id="baseAction">Sending: </span><input oncchange="calcOrderGetting()" onkeyup="calcOrderGetting()" type='text' value='0x0' id='orderFillValue' /><br>
+            Rate: <input type='text' value='0x0' id='orderRate' /><br>
+            <span id="pairAction">Getting: </span><input type='text' value='0x0' id='orderGetting' /><br>
+            <button onclick="cancelFillOrder()">Cancel</button> <button onclick="sendFillOrder()">Fill Order</button></div>
+      </div>
+    </div>
+  </div>
+</center>
+</div>
+</section>
+
+<section id="call-to-action">
+<div class="row">
+  <div class="seven columns" style="width: 49%">
+    <h2 style="text-align: center;">DEX Frontend Over IPFS</h2>
+    <h3 style="text-align: center; color: white;">Serverless DB over Ethereum Network</h3>
+  <div style="text-align: center;">
+    List your Token - Fee: <span id="listTokenFeeLabel"></span><br>
+    <input id="listTokenFee" type="hidden" value="0">
+    <input id="registerBaseCoin" type="text" placeholder="0x0" style="width: 100%;text-align: center;color: #00ff00;font-weight: bold;"><button onclick="sendRegisterToken()">Register Now</button>
+  </div>
+</div>
+<div class="three columns action" style="margin-top: 0; width: 49%">
+  <h2 id="baseCoinTitle" style="width: 100%;text-align: center;" title="Before select a base coin">SELECT A BASE</h2>
+  <h3 style="text-align: center; color: white;">OPEN A MARKET</h3>
+  <div style="text-align: center;"><input id="baseCoin" type="hidden">
+    List your market - Fee: <span id="createMarketFeeLabel"></span><br>
+    <input type="hidden" id="createMarketFee" value="0" />
+    <input type="text" id="pairAddr" placeholder="0x0" style="width: 100%;text-align: center;color: #00ff00;font-weight: bold;">
+    <button onclick="sendCreateMarket()">Create Market</button>
+  </div>
+</div>
+
+<div class="seven columns"  style="width: 49%">
+    <h3 style="text-align: center; color: white;">Order<br>History Last 5 of <span id="donesCount1"></span></h3>
+  <div style="text-align: center;width:100%;">
+         <table class="tbheaderDones" style="width: 100%; text-align: center;">
+         <tr id="sellHeaderDones"></tr>
+         </table>  
+         <table id="typeSellDones" style="width: 100%; text-align: center;"> 
+         </table>         
+  </div>
+</div>
+<div class="three columns action" style="margin-top: 0; width: 49%">
+  <h3 style="text-align: center; color: white;">Order History<br>Last 5 of <span id="donesCount2"></span></h3>
+  <div style="text-align: center;">
+           <table class="tbheaderDones" style="width: 100%; text-align: center;">
+           <tr id="buyHeaderDones"></tr>
+           </table>
+           <table id="typeBuyDones" style="width: 100%; text-align: center;">
+           </table>
+  </div>
+</div>
+</div>
+
+</section> 
+
+<footer>
+<div class="row">
+<p class="copyright">&copy; 2019 Woo | Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a> Ethereum Serverless DEX - DEFLAT Team</p>
+<div id="go-top">
+<a class="smoothscroll" title="Back to Top" href="#hero"><i class="icon-up-open"></i></a>
+</div>
+</div> 
+</footer> 
+
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/jquery.min.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/jquery.flexslider.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/waypoints.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/jquery.fittext.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/jquery.fitvids.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/imagelightbox.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/jquery.prettyPhoto.js"></script>
+<script src="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/js/main.js"></script>
+</body>
+</html>
