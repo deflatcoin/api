@@ -84,6 +84,8 @@ https://against.network/newdex/ Select Ropsten Network (testnet)
 
 Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/servlesDexContract.md
 
+CSS Block https://github.com/deflatcoin/decentralization/blob/master/css-block.css
+
 <b>Getting the token list from the database JS</b>
 
 <pre>
