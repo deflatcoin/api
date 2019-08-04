@@ -88,14 +88,19 @@ Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/s
 
 <pre>
   function listTokens(container) {
+    document.getElementById(container).innerHTML += "<option selected title='SELECT' value='SELECT'>SELECT TOKEN</option>";
     exchangeContract.indexCount((error,indexCount) => {
       var html;
-      document.getElementById(container).innerHTML += "<option title='SELECT' value='SELECT'>SELECT BASE COIN</option>";
       var i;
       for (i = 1; i <= indexCount; i++) {         
             exchangeContract.index.call(i, function (err,addr) {
-              exchangeContract.tokens.call(addr, function (err,token) {             
-                document.getElementById(container).innerHTML += "<option title="+token[0]+" value="+token[0]+">"+token[1].toUpperCase()+"</option>";
+              exchangeContract.tokens.call(addr, function (err,token) {    
+                if (baseDefault.toUpperCase() == token[0].toUpperCase()) {
+                    document.getElementById(container).innerHTML += "<option selected title="+token[0]+" value="+token[0]+">"+token[1].toUpperCase()+"</option>";
+                    listTokenMarkets();
+                } else {
+                  document.getElementById(container).innerHTML += "<option title="+token[0]+" value="+token[0]+">"+token[1].toUpperCase()+"</option>";
+                }                         
               });            
             });           
       }       
@@ -103,55 +108,63 @@ Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/s
   }
 </pre>
 
-<b>Getting the token list from the database JS</b>
+<b>Getting the Market list from the database JS</b>
 <pre>
   function listTokenMarkets() {
     var html;
     var i;      
+      clearFields();
       addr = document.getElementById("tkaddress").value;  	  
       baseName = document.getElementById("tkaddress").options[document.getElementById("tkaddress").selectedIndex].text;	   
       exchangeContract.tokens.call(addr, function (err,token) {                      
           baseDecimals = token[3];
          baseSymbol = token[2];  		 
       });    	       
-      getLikesBase();	  
+      getLikesBase();	      
       document.getElementById("baseCoinTitle").innerText = baseName;
       document.getElementById('baseCoin').value = addr;
-      document.getElementById("tkpairaddress").innerHTML = "";
+      document.getElementById("tkpairaddress").innerHTML = "";      
       if (addr != "SELECT") {      
+        getMyBalance(addr,web3.eth.accounts[0], 'myBaseBalance');  
         exchangeContract.tokens.call(addr, function (err,token) {
            baseDecimals = token[3]; 
            baseSymbol = token[2];			
            marketCount = token[6];  
            if (token[6] == 0) {
                document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
-           } else {
-               document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>SELECT PAIR COIN</option>";
-           }       
+               document.getElementById("tkpairaddress").selectedIndex = 1;
+           }      
            for (i=1; i <= marketCount; i++) {
+             document.getElementById("tkpairaddress").innerHTML = "<option selected title='SELECT' value='SELECT'>SELECT MARKET</option>";
              exchangeContract.getPairByIndex.call(addr, i, function (err,market) {         
-               exchangeContract.tokens.call(market[0], function (err,token) {
-                  document.getElementById("tkpairaddress").innerHTML += "<option title='"+token[0]+"' value='"+token[0]+"'>"+token[1].toUpperCase()+"</option>";                
+               exchangeContract.tokens.call(market[0], function (err,token) { 
+                  if (pairDefault.toUpperCase() == token[0].toUpperCase()) {
+                    document.getElementById("tkpairaddress").innerHTML += "<option selected title='"+token[0]+"' value='"+token[0]+"'>"+token[1].toUpperCase()+"</option>"; 
+                    listOrders(true); 
+                  } else {
+                    document.getElementById("tkpairaddress").innerHTML += "<option title='"+token[0]+"' value='"+token[0]+"'>"+token[1].toUpperCase()+"</option>";
+                  }                                     
                });    
              });         
            }
         });
-
      } else {
        document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
-     }
-          
+       document.getElementById("tkpairaddress").selectedIndex = 1;
+     }          
   }
 </pre>
 
-<b>Entering an order JS</b>
+<b>Getting order list JS</b>
 
 <pre>
-  function listOrders(clear) {
+function listOrders(clear) {
     var html;
     var i;
       if (clear) {
-         clearFields();
+         clearFields(); 
+         setCookie("baseDefaultAddr",document.getElementById("tkaddress").value,10);
+         setCookie("pairDefaultAddr",document.getElementById("tkpairaddress").value,10);        
       } else {
         document.getElementById("typeSell").innerHTML = '';
         document.getElementById("typeBuy").innerHTML = '';
@@ -164,18 +177,22 @@ Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/s
           pairDecimals = token[3];
           pairSymbol = token[2];  		 
           getAllowanceAccount(pairAddr,web3.eth.accounts[0],'approvePairValue');
+          document.getElementById("btnBuy").disabled = false;
+          document.getElementById("btnBuy").style.background = '#11ABB0'; 
       });
       getLikesPair();   	
       getMyBalance(addr,web3.eth.accounts[0], 'myBaseBalance'); 
       getMyBalance(pairAddr,web3.eth.accounts[0], 'myPairBalance');   
       document.getElementById("btnApproveBase").innerText = baseName;
-      document.getElementById("btnApprovePair").innerText = pairName;      
+      document.getElementById("btnApprovePair").innerText = pairName;     
+      document.getElementById("btnApproveBase").title = 'Approve value to '+baseName;
+      document.getElementById("btnApprovePair").title = 'Approve value to '+pairName;   
+      document.getElementById('baseExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+addr;
+      document.getElementById('pairExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+pairAddr;
       document.getElementById("sellHeader").innerHTML = '<td>THEY OFFER '+baseName+'</td><td>RATE<span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',true)"> SORT </span><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+pairName+'</td><td>FUNDS: '+baseName+'</td><td>ALLOWANCE '+baseName+'</td>';
       document.getElementById("buyHeader").innerHTML =  '<td>THEY OFFER '+pairName+'</td><td>RATE<span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',true)"> SORT </span><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+baseName+'</td><td>FUNDS: '+pairName+'</td><td>ALLOWANCE '+pairName+'</td>';
-      if ((addr != "SELECT") && (pairAddr != "SELECT")) { 
-        getAllowanceAccount(addr,    web3.eth.accounts[0],'approveBaseValue');        
-        document.getElementById("btnBuy").disabled = false;
-        document.getElementById("btnBuy").style.background = '#11ABB0'; 
+      if ((addr != "SELECT") && (pairAddr != "SELECT")) {         
+        getAllowanceAccount(addr,    web3.eth.accounts[0],'approveBaseValue');                        
         document.getElementById('pairSymbolSell').innerText = 'SEND '+baseName;
         document.getElementById("pairSymbolSellPlaced").innerText = 'TO GET '+pairName;  
         document.getElementById('pairSymbolBuy').innerText  = 'SEND '+pairName; 
@@ -183,8 +200,13 @@ Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/s
         exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
            ordersCount = market[0];
            for (i=1; i <= ordersCount; i++) {
-               exchangeContract.getOrders(addr, pairAddr, i, function (err, orders) {                              
-                     document.getElementById("typeSell").innerHTML += '<tr><td title="'+orders[1]+'">'+(orders[3]/(10**baseDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 1)">FILL</button></td><td>'+(((orders[3]/(10**baseDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="apairbalance'+orders[0]+'">'+getBalance(addr,orders[1],orders[0],'a')+'</td><td id="apairallowance'+orders[0]+'">'+getAllowance(pairAddr,addr,orders[1],exchangeAddr,orders[0], orders[1],'a',1,baseDecimals)+'</td></tr>';
+               exchangeContract.getOrders(addr, pairAddr, i, function (err, orders) {
+                     if (orders[1] == web3.eth.accounts[0]) {
+                        fillLbl = 'YOU';
+                     } else {
+                        fillLbl = 'FILL';
+                     }                             
+                     document.getElementById("typeSell").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**baseDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" id="fillBtna'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 1)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**baseDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="apairbalance'+orders[0]+'">'+getBalance(addr,orders[1],orders[0],'a',1,orders[3])+'</td><td id="apairallowance'+orders[0]+'">'+getAllowance(pairAddr,addr,orders[1],exchangeAddr,orders[0], orders[1],'a',1,baseDecimals,orders[3])+'</td></tr>';
                });   
            }
         });    
@@ -195,13 +217,19 @@ Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/s
                document.getElementById("btnSell").style.background = '#11ABB0';                
            }
            for (i=1; i <= ordersCount; i++) {
-               exchangeContract.getOrders(pairAddr, addr, i, function (err, orders) {                              
-                     document.getElementById("typeBuy").innerHTML += '<tr><td title="'+orders[1]+'">'+(orders[3]/(10**pairDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 0)">FILL</button></td><td>'+(((orders[3]/(10**pairDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="bpairbalance'+orders[0]+'">'+getBalance(pairAddr,orders[1],orders[0],'b')+'</td><td id="bpairallowance'+orders[0]+'">'+getAllowance(addr,pairAddr,orders[1],exchangeAddr,orders[0], orders[1],'b',0,pairDecimals)+'</td></tr>';
+               exchangeContract.getOrders(pairAddr, addr, i, function (err, orders) {
+                     if (orders[1] == web3.eth.accounts[0]) {
+                        fillLbl = 'YOU';
+                     } else {
+                        fillLbl = 'FILL';
+                     }                               
+                     document.getElementById("typeBuy").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**pairDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" id="fillBtnb'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 0)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**pairDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="bpairbalance'+orders[0]+'">'+getBalance(pairAddr,orders[1],orders[0],'b',0,orders[3])+'</td><td id="bpairallowance'+orders[0]+'">'+getAllowance(addr,pairAddr,orders[1],exchangeAddr,orders[0], orders[1],'b',0,pairDecimals,orders[3])+'</td></tr>';
                });   
            }
         });                   
      } else {
        document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
-     }    
+     }
+     listOrdersDones();    
   }
 </pre>
