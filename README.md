@@ -233,3 +233,42 @@ function listOrders(clear) {
      listOrdersDones();    
   }
 </pre>
+
+<b>Getting done list JS</b>
+
+<pre>
+  function listOrdersDones() {
+    var html;
+    var i;
+      document.getElementById("typeSellDones").innerHTML = '';
+      document.getElementById("typeBuyDones").innerHTML = '';
+      addr = document.getElementById("tkaddress").value; 
+      pairAddr = document.getElementById("tkpairaddress").value;
+      document.getElementById("sellHeaderDones").innerHTML = '<td>'+baseName+'</td><td><span>RATE</span></td><td>DATE</td>';
+      document.getElementById("buyHeaderDones").innerHTML =  '<td>'+pairName+'</td><td><span>RATE</span></td><td>DATE</td>';
+      if ((addr != "SELECT") && (pairAddr != "SELECT")) {   
+        exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
+           ordersCount = market[1];
+           document.getElementById('donesCount1').innerText = ordersCount;
+           start = ordersCount-4; // last 5
+           if (start < 1) {start = 1} 
+           for (i=start; i <= ordersCount; i++) {
+               exchangeContract.getDones(addr, pairAddr, i, function (err, orders) {                              
+                    document.getElementById("typeSellDones").innerHTML += '<tr><td>'+(orders[2]/(10**pairDecimals)).toFixed(9)+'</td><td>'+(orders[4]/(10**9)).toFixed(5)+'</td><td>'+orders[3]+'</td></tr>';
+               });   
+           }
+        });    
+        exchangeContract.getPairByAddr(pairAddr, addr,  function (err,market) {
+           ordersCount = market[1];
+           document.getElementById('donesCount2').innerText = ordersCount;
+           start = ordersCount-4; // last 5
+           if (start < 1) {start = 1} 
+           for (i=start; i <= ordersCount; i++) {
+               exchangeContract.getDones(pairAddr, addr, i, function (err, orders) {                           
+                     document.getElementById("typeBuyDones").innerHTML += '<tr><td>'+(orders[2]/(10**baseDecimals)).toFixed(9)+'</td><td>'+(orders[4]/(10**9)).toFixed(5)+'</td><td>'+orders[3]+'</td></tr>';
+               });   
+           }
+        });                   
+     }
+  }
+</pre>
