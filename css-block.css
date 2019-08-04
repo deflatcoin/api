@@ -1,0 +1,239 @@
+#typeSell td, #typeBuy td{
+    margin: 0;
+    padding-left: 5px; padding-right: 5px;
+    text-align: right;
+    width: 180px;
+    border-bottom: 1px solid black;
+    color: black; 
+    font-style: bold;    
+}
+
+#typeSell td {
+    background-color: #BBBBFF;    
+}
+
+#typeBuy td {
+    background-color: #AAFFAA;
+}
+
+.tbheader td {
+  width: 180px;
+  text-align: right;
+  color: white; 
+}
+
+.tbheader, #typeBuy, #typeSell {
+  width: 1200px;
+  left: -100px;
+  position: relative;
+}
+  
+.approvalTable {
+   position: relative;
+   border-bottom: 2px solid #004000;
+}
+
+
+#btnBuy, #btnSell {
+  margin-left: 5px;
+  position: relative;
+}
+
+.approvalTable td {
+   padding-left: 12px; 
+   padding-bottom: 20px;
+   width: 25%;
+}
+
+.offer {
+  text-align: right;
+}
+
+.approvalTable button, .approvalTable input {
+   width: 200px;   
+   margin-right: 20px;
+}
+
+.approvalTable button {
+  margin-top: 7px;
+}
+
+#headerOptionsContainer, #features {
+  background-color: black;  
+}
+
+#typeSell thead td, #typeBuy thead td {
+  padding: 5px;
+  text-align: center;
+  color: white;
+}
+
+.designEx {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.likesC img {
+  width: 49px;
+  height:48px;
+  margin-bottom: 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.likesC {
+  position: absolute !important;
+  top: 66px;
+  text-align: center;
+}
+
+.voteCount {
+  position: relative;
+  top: -12px;
+  font-weight: bold;
+}
+
+#likeBaseVotesC {right:300px;}
+#diskikeBaseVotesC {right:250px;}
+#likePairVotesC {right:150px;}
+#dislikePairVotesC {right:100px;}
+#pairSymbolSell, #pairSymbolBuy {font-weight: bold;}
+
+.apBtn {
+  margin-bottom: 5px;
+}
+
+.placedLabel {
+  color: #00FF00;
+  font-weight: bold;
+  margin-right: 20px;
+  min-width: 100px;
+  position: relative;
+}
+
+.cancelBtn, .fillBtn {
+  position: relative;
+  background: #102010;  
+  right: 2px;
+  letter-spacing: 1px;
+  top: -2px;
+  height: 18px;
+  font-size: 10px;
+  font: 10px 'montserrat-bold', sans-serif;
+  margin: 3px;
+  margin-top: 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  box-shadow: 2px 2px 2px black;
+}
+
+.cancelBtn {
+  width: 70px;
+}
+
+.fillBtn {
+  width: 46px; 
+}
+
+#orderFillForm {
+  margin-top: 25px;
+  width: 350px;
+  color: white;
+  text-align: right;
+  border-radius: 5px;
+  border: 1px solid #00ff00;
+  box-shadow: 2px 2px 12px #00FF00;
+  padding: 10px;
+  position: fixed;
+  top: 60px;
+  background-color: #202020;
+  display: none;
+}
+
+#orderFillForm input {
+  display: inline;
+  height: 20px;
+}
+
+#orderFillForm h2 {
+  color: white;
+} 
+
+#sellHeaderDones td, #typeSellDones td, #buyHeaderDones td, #typeBuyDones td {
+  width: 33%;
+}
+
+header {
+  box-shadow: 2px 2px 6px #008000;
+} 
+
+#features {
+  border: 2px solid #204020;
+  max-width: 1280px; 
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 12px;
+}
+
+#hero {
+  padding-top: 60px;
+  background: #001000;
+  border-bottom: 1px solid #204020;
+}
+
+select {
+  margin-bottom: 10px;
+}
+
+.coin input, .coin button {
+  width: 225px;
+}
+
+.hlink {
+  margin-right: 20px;
+  font-weight: bold;
+  color: #00FF00;
+  text-shadow: 1px 1px 1px #00AA00;   
+  position: relative;  
+}
+
+a:visited{
+  color: #00FF00;
+}
+
+.wrapBtn {
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  letter-spacing: 0;
+  width: 100px;
+}
+
+#wrapContainer {
+  position: relative;
+  top: -5px;
+}
+
+.wrapInput {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 4px;
+}
+
+.wrapLabel {
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #00FF00;
+  width: 200px;
+}
+
+.garbageRow .fillBtn {
+   display: none;
+}
+
+.garbageRow td {
+  color: #606060 !important;
+}
