@@ -86,6 +86,8 @@ Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/s
 
 CSS Block https://github.com/deflatcoin/decentralization/blob/master/css-block.css
 
+HTML Container https://github.com/deflatcoin/decentralization/blob/master/html-container.html
+
 <b>Getting the token list from the database JS</b>
 
 <pre>
