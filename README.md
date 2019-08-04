@@ -77,7 +77,7 @@ Important for the end user: in the METAMASK window, before authorizing, make sur
 
 <b>0xfe601b539d93B5aa286ad6eDaCE145c4E80A12A3</b>
 
-# Serverless Database
+# Serverless Database Frontend
 
 Require Metamask
 https://against.network/newdex/ Select Ropsten Network (testnet)
