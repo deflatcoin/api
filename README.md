@@ -33,7 +33,7 @@ On Chain Database
 Require Metamask
 https://against.network/testnet/ Select Ropsten Network (testnet)
 
-Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/servlesDexContract.md
+Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/serverlessDexContract.md
 
 CSS Block https://github.com/deflatcoin/decentralization/blob/master/css-block.css
 
