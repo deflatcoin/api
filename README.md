@@ -232,3 +232,179 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
      }
   }
 </pre>
+
+<b>Starting App JS</b>
+
+<pre>
+    const urlParams = new URLSearchParams(window.location.search);
+    startBaseDefault = "0xe1E0DB951844E7fb727574D7dACa68d1C5D1525b";
+    startPairDefault = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+
+    var baseName = "";
+    var pairName = "";
+	
+    function link(domain) {
+        var loc = window.location.pathname;
+        var scriptfolder = loc.substring(0, loc.lastIndexOf('/'));
+        document.write("<a href='https://"+domain+scriptfolder+"' target='_blank'>"+domain+"</a>");      
+    }
+
+    function setCookie(cookie_name, cookie_value, expire_in_days) {
+             var cookie_expire = "";
+             if (expire_in_days != null) {
+	                  var expire = new Date();
+	                  expire.setTime(expire.getTime() + 1000*60*60*24*parseInt(expire_in_days));
+	                  cookie_expire = "; expires=" + expire.toGMTString();
+             }
+             document.cookie = escape(cookie_name) + "=" + escape(cookie_value) + cookie_expire;               
+    }
+
+    function getCookie(cookie_name) {
+            if (!document.cookie.match(eval("/" + escape(cookie_name) + "=/"))) { 
+                return false;
+            }
+            return unescape(document.cookie.replace(eval("/^.*?" + escape(cookie_name) + "=([^\\s;]*).*$/"), "$1"));
+    }
+
+    if (urlParams != "") {
+       baseDefault = urlParams.get('baseAddr');
+       pairDefault = urlParams.get('pairAddr');        
+    } else {
+       cookieBase = getCookie("baseDefaultAddr");
+       cookiePair = getCookie("pairDefaultAddr");
+       if (!cookieBase) {
+           baseDefault = startBaseDefault; 	
+          } else {            
+            baseDefault = cookieBase;          
+       }
+       if (!cookiePair) {
+            pairDefault = startPairDefault; 	
+          } else {            
+            pairDefault = cookiePair;          
+       }       
+    }
+
+	function orderWatch() {
+	    if ((addr != "SELECT") && (pairAddr != "SELECT")) {		   
+           exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
+             ordersCountNew = market[0];
+             donesCountNew = market[1];  			  
+			 if (parseInt(ordersCountNew) != parseInt(ordersCountOld)) {
+			     ordersCountOld = parseInt(ordersCountNew);
+                 donesCountOld = parseInt(donesCountNew);
+                 if (!loading) {
+			         listOrders(false);
+                 } 
+             } else {
+                     if (parseInt(donesCountNew) != parseInt(donesCountOld)) {
+			            donesCountOld = parseInt(donesCountNew);
+                        if (!loading) {
+			              listOrders(false);
+                        }
+			         }
+             }
+		  });
+	    }
+	}
+	
+    function startEx() {
+          web3.version.getNetwork((err, netId) => {
+             if (netId == 1) {
+                ropsten = false;
+                opstenDomain = "";
+                printStatus(false, 'MainNet Selected!');
+                exchangeAddr = "0x2dcf69b59c2301Dd2bC632F7F9f3EB7b93b98E31";
+	            wrapAddr = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+                startBaseDefault = "0xe1E0DB951844E7fb727574D7dACa68d1C5D1525b";
+                startPairDefault = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+                exchangeContract = web3.eth.contract(exchangeABI).at(exchangeAddr);
+                wrapContract = web3.eth.contract(wrapABI).at(wrapAddr); 
+                setCookie("baseDefaultAddr", startBaseDefault, 10);
+                setCookie("pairDefaultAddr", startPairDefault, 10);
+             } else if (netId == 3) {
+                ropsten = true;
+                ropstenDomain = "ropsten.";
+                printStatus(false, 'Ropsten Network Selected!');
+                exchangeAddr = "0xd85c6c8FAD288AB905747149799223Fe554686dD";
+	            wrapAddr = "0xb603cEa165119701B58D56d10D2060fBFB3efad8";
+                startBaseDefault = "0x7Da44D4E0856b337f38e50b342237DC86D9032E3";
+                startPairDefault = "0x3d74C695B17505606480dae9EF3DCd6756C728DA";
+                exchangeContract = web3.eth.contract(exchangeABI).at(exchangeAddr);
+                wrapContract = web3.eth.contract(wrapABI).at(wrapAddr); 
+                setCookie("baseDefaultAddr", startBaseDefault, 10);
+                setCookie("pairDefaultAddr", startPairDefault, 10);
+             } else {
+                printStatus(false, 'Network not suported, select MainNet or Ropsten Network!');
+                ropsten = true;
+                ropstenDomain = "notsuported.";
+                exchangeAddr = "0xd85c6c8FAD288AB905747149799223Fe554686dD";
+	            wrapAddr = "0xb603cEa165119701B58D56d10D2060fBFB3efad8";
+                startBaseDefault = "0x7Da44D4E0856b337f38e50b342237DC86D9032E3";
+                startPairDefault = "0x3d74C695B17505606480dae9EF3DCd6756C728DA";
+                exchangeContract = web3.eth.contract(exchangeABI).at(exchangeAddr);
+                wrapContract = web3.eth.contract(wrapABI).at(wrapAddr); 
+                setCookie("baseDefaultAddr", startBaseDefault, 10);
+                setCookie("pairDefaultAddr", startPairDefault, 10);
+             }
+             document.getElementById('accountExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+web3.eth.accounts[0];        
+             account = web3.eth.accounts[0];
+             accountInterval = setInterval(function() {
+                if (web3.eth.accounts[0] !== account) {
+                    account = web3.eth.accounts[0];
+                    location.reload();
+                }
+             }, 100);	
+             currentNetwork = netId;
+             networkInterval = setInterval(function() {                
+                   web3.version.getNetwork((err, netId) => {
+                      if (netId != currentNetwork) {
+                         currentNetwork = netId;
+                         location.reload();
+                      }
+                   });
+                   if ((asyncElmDetected > 0) && (asyncElmLoaded >= asyncElmDetected)) {
+                      asyncElmDetected = 0;
+                      asyncElmLoaded = 0;  
+                      loading = false; 
+                      sortOrders('typeSell',false);
+                      sortOrders('typeBuy',false);                      
+                   }				    
+             }, 500);
+             watchInterval = setInterval(function() {
+                if (!loading) {
+                    orderWatch();
+                }
+             }, 6000);	
+             document.getElementById('helpLink').href = 'about.html';
+             document.getElementById("myBaseBalance").value = 0;
+             document.getElementById("myPairBalance").value = 0;
+             getMyBalanceLabel(wrapAddr,web3.eth.accounts[0],'wrapBalance');  
+             getEthBalanceLabel(web3.eth.accounts[0],'ethBalance');
+             listTokens("tkaddress");
+             getFees();    
+             document.getElementById('contractExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+exchangeAddr;
+          });			
+     }	
+	
+    window.addEventListener('load', async () => {
+      resetLikes(); 
+      document.getElementById("btnSell").disabled = true;
+      document.getElementById("btnSell").style.background = 'silver'; 
+      document.getElementById("btnBuy").disabled = true;
+      document.getElementById("btnBuy").style.background = 'silver'; 
+      if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          await ethereum.enable();
+          startEx();	  
+        } catch (err) {
+          document.getElementById('statust1').innerText = 'User denied account access';
+        }
+      } else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+        startEx(); 
+      } else {
+          document.getElementById('statust1').innerText = 'No Metamask (or other Web3 Provider) installed';
+      }
+    })
+</pre>
