@@ -115,9 +115,12 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 <b>Getting order list JS</b>
 
 <pre>
-function listOrders(clear) {
+  function listOrders(clear) {
     var html;
     var i;
+    loading = true;
+    asyncElmDetected = 0;
+    asyncElmLoaded = 0;
       if (clear) {
          clearFields(); 
          setCookie("baseDefaultAddr",document.getElementById("tkaddress").value,10);
@@ -134,8 +137,6 @@ function listOrders(clear) {
           pairDecimals = token[3];
           pairSymbol = token[2];  		 
           getAllowanceAccount(pairAddr,web3.eth.accounts[0],'approvePairValue');
-          document.getElementById("btnBuy").disabled = false;
-          document.getElementById("btnBuy").style.background = '#11ABB0'; 
       });
       getLikesPair();   	
       getMyBalance(addr,web3.eth.accounts[0], 'myBaseBalance'); 
@@ -146,8 +147,8 @@ function listOrders(clear) {
       document.getElementById("btnApprovePair").title = 'Approve value to '+pairName;   
       document.getElementById('baseExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+addr;
       document.getElementById('pairExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+pairAddr;
-      document.getElementById("sellHeader").innerHTML = '<td>THEY OFFER '+baseName+'</td><td>RATE<span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',true)"> SORT </span><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+pairName+'</td><td>FUNDS: '+baseName+'</td><td>ALLOWANCE '+baseName+'</td>';
-      document.getElementById("buyHeader").innerHTML =  '<td>THEY OFFER '+pairName+'</td><td>RATE<span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',true)"> SORT </span><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+baseName+'</td><td>FUNDS: '+pairName+'</td><td>ALLOWANCE '+pairName+'</td>';
+      document.getElementById("sellHeader").innerHTML = '<td>THEY OFFER '+baseName+'</td><td class="rateCol"><span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',false)">RATE/SORT</span></td><td class="fillCol"><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+pairName+'</td><td>FUNDS: '+baseName+'</td><td>ALLOWANCE '+baseName+'</td>';
+      document.getElementById("buyHeader").innerHTML =  '<td>THEY OFFER '+pairName+'</td><td class="rateCol"><span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',false)">RATE/SORT</span></td><td class="fillCol"><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+baseName+'</td><td>FUNDS: '+pairName+'</td><td>ALLOWANCE '+pairName+'</td>';
       if ((addr != "SELECT") && (pairAddr != "SELECT")) {         
         getAllowanceAccount(addr,    web3.eth.accounts[0],'approveBaseValue');                        
         document.getElementById('pairSymbolSell').innerText = 'SEND '+baseName;
@@ -156,6 +157,9 @@ function listOrders(clear) {
         document.getElementById("pairSymbolBuyPlaced").innerText = 'TO GET '+baseName;  	
         exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
            ordersCount = market[0];
+		   ordersCountOld = parseInt(ordersCount);
+           donesCountOld  = parseInt(market[1]);
+           asyncElmDetected = asyncElmDetected+(ordersCount*3);
            for (i=1; i <= ordersCount; i++) {
                exchangeContract.getOrders(addr, pairAddr, i, function (err, orders) {
                      if (orders[1] == web3.eth.accounts[0]) {
@@ -163,15 +167,14 @@ function listOrders(clear) {
                      } else {
                         fillLbl = 'FILL';
                      }                             
-                     document.getElementById("typeSell").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**baseDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" id="fillBtna'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 1)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**baseDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="apairbalance'+orders[0]+'">'+getBalance(addr,orders[1],orders[0],'a',1,orders[3])+'</td><td id="apairallowance'+orders[0]+'">'+getAllowance(pairAddr,addr,orders[1],exchangeAddr,orders[0], orders[1],'a',1,baseDecimals,orders[3])+'</td></tr>';
+                     document.getElementById("typeSell").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**baseDecimals)).toFixed(decimalPlaces)+'</td><td class="rateCol">'+(orders[2]/(10**9)).toFixed(9)+'</td><td class="fillCol"><button class="fillBtn" id="fillBtna'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 1)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**baseDecimals))/orders[2])*(10**9)).toFixed(decimalPlaces)+'</td><td id="apairbalance'+orders[0]+'">'+getBalance(addr,orders[1],orders[0],'a',1,orders[3])+'</td><td id="apairallowance'+orders[0]+'">'+getAllowance(pairAddr,addr,orders[1],exchangeAddr,orders[0], orders[1],'a',1,baseDecimals,orders[3])+'</td></tr>';
                });   
            }
         });    
         exchangeContract.getPairByAddr(pairAddr, addr,  function (err,market) {
            ordersCount = market[0];
-           if (market[2]) {
-               document.getElementById("btnSell").disabled = false;
-               document.getElementById("btnSell").style.background = '#11ABB0';                
+           asyncElmDetected = asyncElmDetected+(ordersCount*3);
+           if (market[2]) {                
            }
            for (i=1; i <= ordersCount; i++) {
                exchangeContract.getOrders(pairAddr, addr, i, function (err, orders) {
@@ -180,14 +183,14 @@ function listOrders(clear) {
                      } else {
                         fillLbl = 'FILL';
                      }                               
-                     document.getElementById("typeBuy").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**pairDecimals)).toFixed(9)+'</td><td>'+(orders[2]/(10**9)).toFixed(9)+'<button class="fillBtn" id="fillBtnb'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 0)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**pairDecimals))/orders[2])*(10**9)).toFixed(9)+'</td><td id="bpairbalance'+orders[0]+'">'+getBalance(pairAddr,orders[1],orders[0],'b',0,orders[3])+'</td><td id="bpairallowance'+orders[0]+'">'+getAllowance(addr,pairAddr,orders[1],exchangeAddr,orders[0], orders[1],'b',0,pairDecimals,orders[3])+'</td></tr>';
+                     document.getElementById("typeBuy").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**pairDecimals)).toFixed(decimalPlaces)+'</td><td class="rateCol">'+(1/(orders[2]/(10**9))).toFixed(9)+'</td><td class="fillCol"><button class="fillBtn" id="fillBtnb'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 0)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**pairDecimals))/orders[2])*(10**9)).toFixed(decimalPlaces)+'</td><td id="bpairbalance'+orders[0]+'">'+getBalance(pairAddr,orders[1],orders[0],'b',0,orders[3])+'</td><td id="bpairallowance'+orders[0]+'">'+getAllowance(addr,pairAddr,orders[1],exchangeAddr,orders[0], orders[1],'b',0,pairDecimals,orders[3])+'</td></tr>';
                });   
            }
         });                   
      } else {
        document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
      }
-     listOrdersDones();    
+     listOrdersDones();  
   }
 </pre>
 
