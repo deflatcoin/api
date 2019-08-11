@@ -22,7 +22,7 @@ On Chain Database
 # Serverless Database Frontend
 
 Require Metamask
-https://against.network/testnet/ Select Ropsten Network (testnet)
+https://against.network/newdex/ Now working on MainNet & Ropsten Network (testnet)
 
 Contract Details: https://github.com/deflatcoin/ethereum-contracts/blob/master/serverlessDexContract.md
 
