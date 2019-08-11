@@ -1,25 +1,9 @@
 # AGAINST Project
 
-the AGAINST Project aims to develop a fully decentralized ecosystem for crypto assets, including currency, exchange and site.
+The AGAINST Project aims to develop a fully decentralized ecosystem for crypto assets, including currency, exchange and site.
 
 # New DEX Frontend
 The frontend is new decentralized Ethereum Token Exchange, with changes that differentiate the need of a central host and / or domain, being able to IPFS or localhost implementation. This does not prevent anyone from making the gateway available in a domain if they wish. The important thing is the freedom to choose the implementation you find most appropriate.
-
-# DECENTRALIZED API, TOOLS & DATABASE 
-
-Decentralized exchange API
-
-Proprietary clusters **
-
-High response speed and high availability ***
-
-** proprietary structures are not resistant to censorship.
-
-*** is limited to the number of clusters and parallel networks that the company can maintain. 
-
-Volunteer clusters & networks (last stage)
-
-Censorship-resistant and very high availability ecosystem.
 
 # Under development
 
