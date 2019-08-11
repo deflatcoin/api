@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!-->
+
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+<meta charset="utf-8">
+<title>DEFLAT Serverless DEX</title>
+<meta name="description" content="Fully decentralized ecosystem">
+<meta name="author" content="DEFLAT TEAM">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/css/default.css">
+<link rel="stylesheet" href="https://gateway.pinata.cloud/ipfs/QmTLWjJ3sPV796ZBrCndnqVsiJxS62sE63SUBaqPYVB7P9/css/layout.css">
+<link rel="shortcut icon" href="https://gateway.pinata.cloud/ipfs/Qmc4HhctouyDXoXqVwEVZhuiwviYWTFF4HoRLK7zraCUwj/images/favicon.png">
+<style>
+
+#typeSell td, #typeBuy td{
+    padding-left: 5px; padding-right: 5px;
+    text-align: right;
+    width: 180px;
+    color: black; 
+    font-style: bold;
+    font-size: 12px;        
+}
+
+.fillCol {width:  50px !important;}
+.rateCol {width: 130px !important;}
+
+#typeSell tr {
+    background-color: #AAAAFF;    
+}
+
+#typeSell tr:hover, #typeBuy tr:hover  {
+    background-color: #CFCFCF;
+    box-shadow: 1px 1px 1px black;   
+}
+
+#typeBuy tr {
+    background-color: #AAFFAA;
+}
+
+.tbheader td {
+  width: 180px;
+  text-align: right;
+  color: white; 
+}
+
+.tbheader, #typeBuy, #typeSell {
+  width: 1200px;
+  left: -100px;
+  position: relative;
+}
+  
+.approvalTable {
+   position: relative;
+   border-bottom: 2px solid #004000;
+}
+
+
+#btnBuy, #btnSell {
+  margin-left: 5px;
+  position: relative;
+}
+
+.approvalTable td {
+   padding-left: 12px; 
+   padding-bottom: 20px;
+   width: 25%;
+}
+
+.offer {
+  text-align: right;
+}
+
+.approvalTable button, .approvalTable input {
+   width: 200px;   
+   margin-right: 20px;
+}
+
+.approvalTable button {
+  margin-top: 7px;
+}
+
+#headerOptionsContainer, #features {
+  background-color: black;  
+}
+
+#typeSell thead td, #typeBuy thead td {
+  padding: 5px;
+  text-align: center;
+  color: white;
+}
+
+.designEx {
+  width: 100%;
+  margin-top: 20px;
+  line-height: 24px;
+}
+
+.likesC img {
+  width: 49px;
+  height:48px;
+  margin-bottom: 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.likesC {
+  position: absolute !important;
+  top: 66px;
+  text-align: center;
+}
+
+.voteCount {
+  position: relative;
+  top: -12px;
+  font-weight: bold;
+}
+
+#likeBaseVotesC {right:300px;}
+#diskikeBaseVotesC {right:250px;}
+#likePairVotesC {right:150px;}
+#dislikePairVotesC {right:100px;}
+#pairSymbolSell, #pairSymbolBuy {font-weight: bold;}
+
+.apBtn {
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.placedLabel {
+  color: #00FF00;
+  font-weight: bold;
+  margin-right: 20px;
+  min-width: 100px;
+  position: relative;
+}
+
+.cancelBtn, .fillBtn {
+  position: relative;
+  background: #102010;  
+  right: 2px;
+  letter-spacing: 1px;
+  top: -2px;
+  height: 18px;
+  font-size: 10px;
+  font: 10px 'montserrat-bold', sans-serif;
+  margin: 3px;
+  margin-top: 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  box-shadow: 2px 2px 2px black;
+}
+
+.cancelBtn {
+  width: 70px;
+}
+
+.fillBtn {
+  width: 46px; 
+}
+
+#orderFillForm {
+  margin-top: 25px;
+  width: 350px;
+  color: white;
+  text-align: right;
+  border-radius: 5px;
+  border: 1px solid #00ff00;
+  box-shadow: 2px 2px 12px #00FF00;
+  padding: 10px;
+  position: fixed;
+  top: 60px;
+  background-color: #202020;
+  display: none;
+}
+
+#orderFillForm input {
+  display: inline;
+  height: 20px;
+}
+
+#orderFillForm h2 {
+  color: white;
+} 
+
+#sellHeaderDones td, #typeSellDones td, #buyHeaderDones td, #typeBuyDones td {
+  width: 33%;
+}
+
+header {
+  box-shadow: 2px 2px 6px #008000;
+  height: 50px; 
+} 
+
+#features {
+  border: 2px solid #204020;
+  max-width: 1280px; 
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 12px;
+  padding-bottom: 20px;
+}
+
+#hero {
+  padding-top: 60px;
+  background: #001000;
+  border-bottom: 1px solid #204020;
+}
+
+select {
+  margin-bottom: 10px;
+}
+
+.coin input, .coin button, .coin select {
+  width: 250px;
+}
+
+.hlink {
+  margin-right: 20px;
+  font-weight: bold;
+  color: #00FF00;
+  text-shadow: 1px 1px 1px #00AA00;   
+  position: relative;  
+}
+
+a:visited{
+  color: #00FF00;
+}
+
+.wrapBtn {
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  letter-spacing: 0;
+  width: 100px;
+}
+
+#wrapContainer {
+  position: relative;
+  top: -5px;
+}
+
+.wrapInput {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 4px;
+}
+
+.wrapLabel {
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #00FF00;
+  width: 200px;
+}
+
+.garbageRow .fillBtn {
+   display: none;
+}
+
+.garbageRow td {
+  color: #606060 !important;
+}
+
+h1 {
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  right: 12px;
+  top: 15px;
+}
+
+#statust1 {
+  top: 18px; 
+  margin-left: 8px;
+  position: relative;
+}
+
+#tkaddress, #tkpairaddress {
+  position: relative;
+}
+
+</style>
+
+</head>
+<body>
+
+
+<header>
+<h1>Powered by AGAINST Network</h1>
+<div class="logo">
+<a class="smoothscroll" href="#hero"><img alt="Deflat Logo" src="https://gateway.pinata.cloud/ipfs/QmNXFhpjBaZqRxVXDgxJ1W23J4htipcSfCwstcqr1S5TyS"></a>
+</div>
+<span id="statust1">Status: Idle</span>
+</header> 
+
+<section id="hero">
+<div class="row">
+<div id="wrapContainer">
+<span class="wrapLabel">WRAP &larr;&rarr; UNWRAP: <span id=ethBalance>0.000000000</span> ETH &larr;&rarr; <span id="wrapBalance">0.000000000</span> WETH<br><input id="amountToWrap" type="number" class="wrapInput" step="any" value="0">&rarr;</span><button class="wrapBtn" onclick="wrapEth()">WRAP</button><button class="wrapBtn"  onclick="unwrapEth()">UNWRAP</button><span class="wrapLabel">&larr;<input id="amountToUnwrap" type="number" class="wrapInput" step="any" value="0"></span>
+</div>
+<a href="" class="hlink" id="contractExplorerLink" target="_blank">CONTRACT</a>
+<a href="" class="hlink" id="accountExplorerLink" target="_blank">ACCOUNT EXPLORER</a>
+<a href="" class="hlink" id="baseExplorerLink" target="_blank">BASE EXPLORER</a>
+<a href="" class="hlink" id="pairExplorerLink" target="_blank">PAIR EXPLORER</a>
+<a href="" class="hlink" id="helpLink" target="_blank">HELP</a>
+<span id="actionFeeLabel">Action Fee: 0 ETH</span>
+
+
+<div class="likesC" id="likeBaseVotesC" title="Base Coin Score">
+<span><img src="like.png" onclick="sendTokenLike(addr)" alt="Like"></span><br>
+<span class="voteCount" id="likeBaseVotes">0</span>
+</div>
+
+<div class="likesC" id="diskikeBaseVotesC" title="Base Coin Score">
+<span><img src="dislike.png" onclick="sendTokenDislike(addr)" alt="Dislike"></span><br>
+<span class="voteCount" id="dislikeBaseVotes">0</span>
+</div>
+
+<div class="likesC" id="likePairVotesC" title="Pair Coin Score">
+<span><img src="like.png" onclick="sendTokenLike(pairAddr)" alt="Like"></span><br>
+<span class="voteCount" id="likePairVotes">0</span>
+</div>
+
+<div class="likesC" id="dislikePairVotesC" title="Pair Coin Score">
+<span><img src="dislike.png" onclick="sendTokenDislike(pairAddr)" alt="Dislike"></span><br>
+<span class="voteCount" id="dislikePairVotes">0</span>
+</div>
+
+</div>
+</section> 
+
+<section id='features'>
+<div id="headerOptionsContainer">
+<table class="approvalTable"><tr><td class="coin">
+<select id='tkaddress' onchange="listTokenMarkets();"></select>
+Approval value for trade<br>
+<input type="number" step="any" id="approveBaseValue" value="0" /><br>
+<button class="apBtn" id="btnApproveBase" onclick="approveExchange(addr,'approveBaseValue',baseDecimals);">APPROVE</button><br>
+Balance:<br><input type="number" step="any" id="myBaseBalance">
+</td><td class="coin">
+<select id='tkpairaddress' onchange="listOrders(true);listOrdersDones();"></select>
+Approval value for trade<br>
+<input type="number" step="any" id="approvePairValue" value="0" /><br>
+<button class="apBtn" id="btnApprovePair" onclick="approveExchange(pairAddr,'approvePairValue',pairDecimals);">APPROVE</button><br>
+Balance:<br><input type="number" step="any" id="myPairBalance">
+</td>
+<td class="offer">
+<span class="placedLabel" id="pairSymbolSell">BASE NOT SELECTED</span><br>
+Amount: <input type="number" onkeyup="calcTotalSell()" step="any" id="amountSellValue" value="0" /><br>
+Rate: <input type="number" onkeyup="calcTotalSell()" step="any" id="priceSellValue" value="1" /><br>
+<span class="placedLabel" id="pairSymbolSellPlaced">PAIR NOT SELECTED</span><br>
+Total: <input type="number" step="any" id="totalSellValue" onkeyup="calcRateSell()" value="0" />       
+<button id="btnSell" onclick="sendOrder(1)">SELL</button>
+</td>
+<td class="offer">
+<span class="placedLabel" id="pairSymbolBuy">PAIR NOT SELECTED</span><br>
+Amount: <input type="number" onkeyup="calcTotalBuy()" step="any" id="amountBuyValue" value="0" /><br>
+Rate: <input type="number" onkeyup="calcTotalBuy()" step="any" id="priceBuyValue" value="1" /><br>
+<span class="placedLabel" id="pairSymbolBuyPlaced">BASE NOT SELECTED</span><br>
+Total: <input type="number" step="any" id="totalBuyValue"  onkeyup="calcRateBuy()" value="0" />  
+<button id="btnBuy"  onclick="sendOrder(0)">BUY</button>
+</td></tr>
+</table>
+</div>
+
+<div class="designEx">
+  <center> 
+  <div style="color:#303030;">
+    <div id="container" style="min-height: 600px; width: 1000px;">
+      <div id="tokenListContainer" width="100%" style="background-color: #AAAAAA">                  
+      </div>
+      <div>             
+         <table class="tbheader"><tr id="sellHeader"></tr></table>  
+         <table id="typeSell"></table>             
+         <table class="tbheader"><tr id="buyHeader"></tr></table>
+         <table id="typeBuy"></table> 
+         <div id="orderFillForm"><h2>FILL ORDER</h2>
+            <input type="hidden" id="orderFillId"> 
+            <input type="hidden" id="orderBaseAddr"> 
+            <input type="hidden" id="orderPairAddr"> 
+            <input type="hidden" id="orderRawRate"> 
+            <input type="hidden" id="orderPairDecimals"> 
+            I Have: <input type='text' value='0x0' id='orderIHave' /><br>
+            I Want: <input type='text' value='0x0' id='orderIWant' /><br>
+            <span id="baseAction">Sending: </span><input oncchange="calcOrderGetting()" onkeyup="calcOrderGetting()" type='text' value='0x0' id='orderFillValue' /><br>
+            Rate: <input type='text' value='0x0' id='orderRate' /><br>
+            <span id="pairAction">Getting: </span><input type='text' value='0x0' id='orderGetting' /><br>
+            <button onclick="cancelFillOrder()">Cancel</button> <button onclick="sendFillOrder()">Fill Order</button></div>
+      </div>
+    </div>
+  </div>
+</center>
+</div>
+</section>
+
+<section id="call-to-action">
+<div class="row">
+  <div class="seven columns" style="width: 49%">
+    <h2 style="text-align: center;">DEX Frontend Over IPFS</h2>
+    <h3 style="text-align: center; color: white;">Serverless DB over Ethereum Network</h3>
+  <div style="text-align: center;">
+    List your Token - Fee: <span id="listTokenFeeLabel"></span><br>
+    <input id="listTokenFee" type="hidden" value="0">
+    <input id="registerBaseCoin" type="text" placeholder="0x0" style="width: 100%;text-align: center;color: #00ff00;font-weight: bold;"><button onclick="sendRegisterToken()">Register Now</button>
+  </div>
+</div>
+<div class="three columns action" style="margin-top: 0; width: 49%">
+  <h2 id="baseCoinTitle" style="width: 100%;text-align: center;" title="Before select a base coin">SELECT A BASE</h2>
+  <h3 style="text-align: center; color: white;">OPEN A MARKET</h3>
+  <div style="text-align: center;"><input id="baseCoin" type="hidden">
+    List your market - Fee: <span id="createMarketFeeLabel"></span><br>
+    <input type="hidden" id="createMarketFee" value="0" />
+    <input type="text" id="pairAddr" placeholder="0x0" style="width: 100%;text-align: center;color: #00ff00;font-weight: bold;">
+    <button onclick="sendCreateMarket()">Create Market</button>
+  </div>
+</div>
+
+<div class="seven columns"  style="width: 49%">
+    <h3 style="text-align: center; color: white;">Order<br>History Last 5 of <span id="donesCount1"></span></h3>
+  <div style="text-align: center;width:100%;">
+         <table class="tbheaderDones" style="width: 100%; text-align: center;">
+         <tr id="sellHeaderDones"></tr>
+         </table>  
+         <table id="typeSellDones" style="width: 100%; text-align: center;"> 
+         </table>         
+  </div>
+</div>
+<div class="three columns action" style="margin-top: 0; width: 49%">
+  <h3 style="text-align: center; color: white;">Order History<br>Last 5 of <span id="donesCount2"></span></h3>
+  <div style="text-align: center;">
+           <table class="tbheaderDones" style="width: 100%; text-align: center;">
+           <tr id="buyHeaderDones"></tr>
+           </table>
+           <table id="typeBuyDones" style="width: 100%; text-align: center;">
+           </table>
+  </div>
+</div>
+</div>
+
+</section> 
+
+<footer>
+<div class="row">
+<p class="copyright">&copy; 2019 Woo | Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a> Ethereum Serverless DEX - DEFLAT Team</p>
+<div id="go-top">
+<a class="smoothscroll" title="Back to Top" href="#hero"><i class="icon-up-open"></i></a>
+</div>
+</div> 
+</footer> 
+
+<script>
+     var addr = "SELECT";
+     var pairAddr = "SELECT";
+     var ropsten = false;
+     var currentNetwork;
+     var ropstenDomain = "";
+     var baseDecimals=0;
+     var pairDecimals=0;
+     var baseSymbol="";
+     var pairSymbol="";
+     var addr;
+     var pairAddr;
+     var asyncElmDetected = 0;
+     var asyncElmLoaded = 0;
+     var rowId = 0;
+     var actionFee;
+     var marketFee;
+     var registerFee;
+     var account;
+     var accountInterval;
+     var exchangeContract;
+     var wrapContract;
+     var exchangeAddr;
+	 var wrapAddr;
+     var startBaseDefault;
+     var startPairDefault;
+     var decimalPlaces = 5; //5 //6
+     var bE = 36; //36 //33
+     var ordersCountNewA = 0;
+     var ordersCountOldA = 0;
+     var donesCountNewA = 0;
+     var donesCountOldA = 0;
+     var ordersCountNewB = 0;
+     var ordersCountOldB = 0;
+     var donesCountNewB = 0;
+     var donesCountOldB = 0;
+     var loading = false;
+	 
+     let standardERC20ABI = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}] 
+
+     let exchangeABI = [{"constant":true,"inputs":[],"name":"registerFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"registerToken","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"actionFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"},{"name":"_tokenPair","type":"address"},{"name":"_rate","type":"uint256"},{"name":"_amount","type":"uint256"},{"name":"_sell","type":"bool"}],"name":"createOrder","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"indexCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"},{"name":"_tokenPair","type":"address"}],"name":"createMarket","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"_actionFee","type":"uint256"}],"name":"changeActionFee","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_minQtdDiv","type":"uint256"}],"name":"changeMinQtdDiv","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_base","type":"address"},{"name":"_pairAddr","type":"address"}],"name":"getPairByAddr","outputs":[{"name":"_ordersCount","type":"uint256"},{"name":"_donesCount","type":"uint256"},{"name":"_exists","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"index","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_base","type":"address"},{"name":"_pair","type":"address"},{"name":"_doneIndex","type":"uint256"}],"name":"getDones","outputs":[{"name":"_orderId","type":"uint256"},{"name":"_fillOwner","type":"address"},{"name":"_fillAmount","type":"uint256"},{"name":"_fillDate","type":"uint256"},{"name":"_rate","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_base","type":"address"},{"name":"_pairIndex","type":"uint256"}],"name":"getPairByIndex","outputs":[{"name":"_tokenPair","type":"address"},{"name":"_ordersCount","type":"uint256"},{"name":"_donesCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_addr","type":"address"}],"name":"getVoteStatus","outputs":[{"name":"_like","type":"bool"},{"name":"_dislike","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"tokenDislike","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_index","type":"uint256"}],"name":"getTokenByIndex","outputs":[{"name":"_tokenBase","type":"address"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"},{"name":"_marketsCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_addr","type":"address"}],"name":"getTokenByAddr","outputs":[{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"},{"name":"_marketsCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"tokenLike","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"ratePlaces","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newAdmin","type":"address"}],"name":"changeAdmin","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_registerFee","type":"uint256"}],"name":"changeRegisterFee","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_orderID","type":"uint256"},{"name":"_token","type":"address"},{"name":"_tokenPair","type":"address"},{"name":"_rate","type":"uint256"},{"name":"_amountFill","type":"uint256"}],"name":"fillOrder","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_orderId","type":"uint256"},{"name":"_token","type":"address"},{"name":"_tokenPair","type":"address"}],"name":"cancelOrder","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"_openMarketFee","type":"uint256"}],"name":"changeOpenMarketFee","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"tokens","outputs":[{"name":"tokenBase","type":"address"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"decimals","type":"uint256"},{"name":"likesCount","type":"uint256"},{"name":"dislikesCount","type":"uint256"},{"name":"marketsCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_index","type":"uint256"}],"name":"getLikesByIndex","outputs":[{"name":"tokenBase","type":"address"},{"name":"_likesCount","type":"uint256"},{"name":"_dislikesCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"openMarketFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_base","type":"address"},{"name":"_pair","type":"address"},{"name":"_orderIndex","type":"uint256"}],"name":"getOrders","outputs":[{"name":"_orderId","type":"uint256"},{"name":"_owner","type":"address"},{"name":"_rate","type":"uint256"},{"name":"_amount","type":"uint256"},{"name":"_sell","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"comment","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"minQtdDiv","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"exists","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_addr","type":"address"}],"name":"getLikesByAddr","outputs":[{"name":"_likesCount","type":"uint256"},{"name":"_dislikesCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":false,"stateMutability":"nonpayable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"tokenPair","type":"address"},{"indexed":false,"name":"ownerId","type":"address"},{"indexed":false,"name":"orderId","type":"uint256"}],"name":"orderPlaced","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"tokenPair","type":"address"},{"indexed":false,"name":"orderId","type":"uint256"},{"indexed":false,"name":"doneId","type":"uint256"}],"name":"orderDone","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"tokenPair","type":"address"},{"indexed":false,"name":"orderId","type":"uint256"}],"name":"orderCanceled","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"tokenPair","type":"address"},{"indexed":false,"name":"orderId","type":"uint256"}],"name":"orderRemovedLowBalance","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"wallet","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"ctrWithdraw","type":"event"}];
+
+     let wrapABI = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"guy","type":"address"},{"name":"wad","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"src","type":"address"},{"name":"dst","type":"address"},{"name":"wad","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"wad","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"dst","type":"address"},{"name":"wad","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"guy","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"dst","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"dst","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Withdrawal","type":"event"}];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    startBaseDefault = "0xe1E0DB951844E7fb727574D7dACa68d1C5D1525b";
+    startPairDefault = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+
+    var baseName = "";
+    var pairName = "";
+	
+    function link(domain) {
+        var loc = window.location.pathname;
+        var scriptfolder = loc.substring(0, loc.lastIndexOf('/'));
+        document.write("<a href='https://"+domain+scriptfolder+"' target='_blank'>"+domain+"</a>");      
+    }
+
+    function setCookie(cookie_name, cookie_value, expire_in_days) {
+             var cookie_expire = "";
+             if (expire_in_days != null) {
+	                  var expire = new Date();
+	                  expire.setTime(expire.getTime() + 1000*60*60*24*parseInt(expire_in_days));
+	                  cookie_expire = "; expires=" + expire.toGMTString();
+             }
+             document.cookie = escape(cookie_name) + "=" + escape(cookie_value) + cookie_expire;               
+    }
+
+    function getCookie(cookie_name) {
+            if (!document.cookie.match(eval("/" + escape(cookie_name) + "=/"))) { 
+                return false;
+            }
+            return unescape(document.cookie.replace(eval("/^.*?" + escape(cookie_name) + "=([^\\s;]*).*$/"), "$1"));
+    }
+
+    if (urlParams != "") {
+       baseDefault = urlParams.get('baseAddr');
+       pairDefault = urlParams.get('pairAddr');        
+    } else {
+       cookieBase = getCookie("baseDefaultAddr");
+       cookiePair = getCookie("pairDefaultAddr");
+       if (!cookieBase) {
+           baseDefault = startBaseDefault; 	
+          } else {            
+            baseDefault = cookieBase;          
+       }
+       if (!cookiePair) {
+            pairDefault = startPairDefault; 	
+          } else {            
+            pairDefault = cookiePair;          
+       }       
+    }
+
+	function orderWatch() {
+	    if ((addr != "SELECT") && (pairAddr != "SELECT")) {		   
+           exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
+             ordersCountNewA = market[0];
+             donesCountNewA = market[1];  			  
+			 if (parseInt(ordersCountNewA) != parseInt(ordersCountOldA)) {
+			     ordersCountOldA = parseInt(ordersCountNewA);
+                 donesCountOldA = parseInt(donesCountNewA);
+                 if (!loading) {
+			         listOrders(false);
+                 } 
+             } else {
+                     if (parseInt(donesCountNewA) != parseInt(donesCountOldA)) {
+			            donesCountOldA = parseInt(donesCountNewA);
+                        if (!loading) {
+			              listOrders(false);
+                        }
+			         }
+             }
+		  });
+          exchangeContract.getPairByAddr(pairAddr, addr,  function (err,market) {
+             ordersCountNewB = market[0];
+             donesCountNewB = market[1];  			  
+			 if (parseInt(ordersCountNewB) != parseInt(ordersCountOldB)) {
+			     ordersCountOldB = parseInt(ordersCountNewB);
+                 donesCountOldB = parseInt(donesCountNewB);
+                 if (!loading) {
+			         listOrders(false);
+                 } 
+             } else {
+                     if (parseInt(donesCountNewB) != parseInt(donesCountOldB)) {
+			            donesCountOldB = parseInt(donesCountNewB);
+                        if (!loading) {
+			              listOrders(false);
+                        }
+			         }
+             }
+		  });
+	    }
+	}
+	
+    function startEx() {
+          web3.version.getNetwork((err, netId) => {
+             if (netId == 1) {
+                ropsten = false;
+                opstenDomain = "";
+                printStatus(false, 'MainNet Selected!');
+                exchangeAddr = "0x2dcf69b59c2301Dd2bC632F7F9f3EB7b93b98E31";
+	            wrapAddr = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+                startBaseDefault = "0xe1E0DB951844E7fb727574D7dACa68d1C5D1525b";
+                startPairDefault = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+                exchangeContract = web3.eth.contract(exchangeABI).at(exchangeAddr);
+                wrapContract = web3.eth.contract(wrapABI).at(wrapAddr); 
+                setCookie("baseDefaultAddr", startBaseDefault, 10);
+                setCookie("pairDefaultAddr", startPairDefault, 10);
+             } else if (netId == 3) {
+                ropsten = true;
+                ropstenDomain = "ropsten.";
+                printStatus(false, 'Ropsten Network Selected!');
+                exchangeAddr = "0xd85c6c8FAD288AB905747149799223Fe554686dD";
+	            wrapAddr = "0xb603cEa165119701B58D56d10D2060fBFB3efad8";
+                startBaseDefault = "0x7Da44D4E0856b337f38e50b342237DC86D9032E3";
+                startPairDefault = "0x3d74C695B17505606480dae9EF3DCd6756C728DA";
+                exchangeContract = web3.eth.contract(exchangeABI).at(exchangeAddr);
+                wrapContract = web3.eth.contract(wrapABI).at(wrapAddr); 
+                setCookie("baseDefaultAddr", startBaseDefault, 10);
+                setCookie("pairDefaultAddr", startPairDefault, 10);
+             } else {
+                printStatus(false, 'Network not suported, select MainNet or Ropsten Network!');
+                ropsten = true;
+                ropstenDomain = "notsuported.";
+                exchangeAddr = "0xd85c6c8FAD288AB905747149799223Fe554686dD";
+	            wrapAddr = "0xb603cEa165119701B58D56d10D2060fBFB3efad8";
+                startBaseDefault = "0x7Da44D4E0856b337f38e50b342237DC86D9032E3";
+                startPairDefault = "0x3d74C695B17505606480dae9EF3DCd6756C728DA";
+                exchangeContract = web3.eth.contract(exchangeABI).at(exchangeAddr);
+                wrapContract = web3.eth.contract(wrapABI).at(wrapAddr); 
+                setCookie("baseDefaultAddr", startBaseDefault, 10);
+                setCookie("pairDefaultAddr", startPairDefault, 10);
+             }
+             document.getElementById('accountExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+web3.eth.accounts[0];        
+             account = web3.eth.accounts[0];
+             accountInterval = setInterval(function() {
+                if (web3.eth.accounts[0] !== account) {
+                    account = web3.eth.accounts[0];
+                    location.reload();
+                }
+             }, 100);	
+             currentNetwork = netId;
+             networkInterval = setInterval(function() {                
+                   web3.version.getNetwork((err, netId) => {
+                      if (netId != currentNetwork) {
+                         currentNetwork = netId;
+                         location.reload();
+                      }
+                   });
+                   if ((asyncElmDetected > 0) && (asyncElmLoaded >= asyncElmDetected)) {
+                      asyncElmDetected = 0;
+                      asyncElmLoaded = 0;  
+                      loading = false; 
+                      sortOrders('typeSell',false);
+                      sortOrders('typeBuy',false);                      
+                   }				    
+             }, 500);
+             watchInterval = setInterval(function() {
+                if (!loading) {
+                    orderWatch();
+                }
+             }, 6000);	
+             document.getElementById('helpLink').href = 'about.html';
+             document.getElementById("myBaseBalance").value = 0;
+             document.getElementById("myPairBalance").value = 0;
+             getMyBalanceLabel(wrapAddr,web3.eth.accounts[0],'wrapBalance');  
+             getEthBalanceLabel(web3.eth.accounts[0],'ethBalance');
+             listTokens("tkaddress");
+             getFees();    
+             document.getElementById('contractExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+exchangeAddr;
+          });			
+     }	
+	
+    window.addEventListener('load', async () => {
+      resetLikes(); 
+      document.getElementById("btnSell").disabled = true;
+      document.getElementById("btnSell").style.background = 'silver'; 
+      document.getElementById("btnBuy").disabled = true;
+      document.getElementById("btnBuy").style.background = 'silver'; 
+      if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          await ethereum.enable();
+          startEx();	  
+        } catch (err) {
+          document.getElementById('statust1').innerText = 'User denied account access';
+        }
+      } else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+        startEx(); 
+      } else {
+          document.getElementById('statust1').innerText = 'No Metamask (or other Web3 Provider) installed';
+      }
+    })  
+	
+	function wrapEth() {
+	  amount = document.getElementById('amountToWrap').value*(10**18);
+	  wrapContract.deposit({
+          to: wrapAddr,
+          value: amount,
+          gas: 150000,
+        },(err,transactionId) => {
+	     printStatus(err, transactionId);
+	  });
+	}
+	
+	function unwrapEth() {
+	  amount = document.getElementById('amountToUnwrap').value*(10**18);
+	  wrapContract.withdraw(amount, (err,transactionId) => {
+	     printStatus(err, transactionId);
+	  });	 
+	}
+
+    function printStatus(err, transactionId) {            
+            if (err) {
+             document.getElementById('statust1').innerText = 'Transaction failed';
+            } else {
+             document.getElementById('statust1').innerHTML = 'Transaction sent: <a href="https://'+ropstenDomain+'etherscan.io/tx/'+transactionId+'" target="_blank">'+transactionId+'</a>';
+            } 
+    }
+
+    function sendOrder(_sell) {
+      if (_sell == 1) {
+         _rate = document.getElementById('priceSellValue').value*(10**9);
+         _amount = document.getElementById('amountSellValue').value*(10**baseDecimals);
+         exchangeContract.createOrder(addr, pairAddr, _rate, _amount, true, {value:actionFee,gas:250000}, (err, transactionId) => {  
+            printStatus(err, transactionId);       
+         }); 
+      } else {
+         _rate = parseInt((1/document.getElementById('priceBuyValue').value)*(10**9));
+         _amount = document.getElementById('amountBuyValue').value*(10**pairDecimals);
+         exchangeContract.createOrder(pairAddr, addr, _rate, _amount, false, {value:actionFee,gas:250000}, (err,transactionId) => {
+           printStatus(err, transactionId);
+         }); 
+      }           
+    }
+
+    function calcAjustBuy() {
+            float9 = (1/(parseInt(1/(document.getElementById('priceBuyValue').value)*(10**9))/(10**9))).toFixed(9);
+            totF9 = (float9*document.getElementById("amountBuyValue").value).toFixed(decimalPlaces) 
+            document.getElementById('priceBuyValue').parentNode.setAttribute('title','Float9 Adjust: '+float9+' X '+totF9); 
+            if ((parseFloat(document.getElementById("amountBuyValue").value) < 0.001) || 
+                           (document.getElementById("totalBuyValue").value <= 0) || 
+                           (document.getElementById("priceBuyValue").value < 0.00000001) ||
+                           (document.getElementById("priceBuyValue").value > 999999999) || 
+						(document.getElementById("priceBuyValue").value > (2**bE))) {
+                document.getElementById('btnBuy').style.backgroundColor = "silver";
+                document.getElementById('btnBuy').disabled = true;
+            } else {
+                document.getElementById('btnBuy').style.backgroundColor = "#11ABB0";
+                document.getElementById('btnBuy').disabled = false;
+            }
+    }
+
+    function calcRateBuy() {
+	 if (parseFloat(document.getElementById("totalBuyValue").value) > parseFloat(document.getElementById("totalBuyValue").value).toFixed(decimalPlaces)) {
+	     document.getElementById("totalBuyValue").style.color = 'red';
+	 } else {
+         document.getElementById("totalBuyValue").style.color = 'black';	  
+	 }
+      if (document.getElementById("totalBuyValue").value > 0) {
+         if ((parseFloat(document.getElementById("totalBuyValue").value) < (2**bE)) && (parseFloat(document.getElementById("amountBuyValue").value) < (2**bE))) {
+            document.getElementById('priceBuyValue').value = parseFloat(document.getElementById("totalBuyValue").value/document.getElementById("amountBuyValue").value).toFixed(9); 
+            calcAjustBuy();
+         } else {
+            document.getElementById('priceBuyValue').value = 0;
+         } 
+      }    
+    }
+
+    function calcTotalBuy() {	  
+	  if (parseFloat(document.getElementById("amountBuyValue").value) > parseFloat(document.getElementById("amountBuyValue").value).toFixed(decimalPlaces)) {
+	     document.getElementById("amountBuyValue").style.color = 'red';
+	  } else {
+         document.getElementById("amountBuyValue").style.color = 'black';	  
+	  }
+	  if (parseFloat(document.getElementById("priceBuyValue").value) > parseFloat(document.getElementById("priceBuyValue").value).toFixed(9)) {
+	     document.getElementById("priceBuyValue").style.color = 'red';
+	  } else {
+         document.getElementById("priceBuyValue").style.color = 'black';	  
+	  }	  
+      if (document.getElementById('priceBuyValue').value > 0) {
+          tBig = parseFloat(document.getElementById("amountBuyValue").value*document.getElementById('priceBuyValue').value).toFixed(decimalPlaces);	
+          if ((tBig < (2**bE)) && (parseFloat(document.getElementById("amountBuyValue").value) < (2**bE))) {
+             document.getElementById("totalBuyValue").value = tBig;               
+          } else  {     
+             document.getElementById("totalBuyValue").value = 0;         
+          }
+      } 
+      calcAjustBuy();   
+    }  
+
+    function calcAjustSell() {
+            float9 = parseFloat(document.getElementById('priceSellValue').value).toFixed(9);
+            totF9 = (document.getElementById("amountSellValue").value/float9).toFixed(decimalPlaces) 
+            document.getElementById('priceSellValue').parentNode.setAttribute('title','Float9 Adjust: '+float9+' X '+totF9); 
+            if ((parseFloat(document.getElementById("amountSellValue").value) < 0.001) || 
+                           (document.getElementById("totalSellValue").value <= 0) || 
+                           (document.getElementById("priceSellValue").value < 0.00000001) ||
+                           (document.getElementById("priceSellValue").value > 999999999) ||
+						(document.getElementById("priceSellValue").value > (2**bE))) {
+                document.getElementById('btnSell').style.backgroundColor = "silver";
+                document.getElementById('btnSell').disabled = true;
+            } else {
+                document.getElementById("btnSell").disabled = false;
+                document.getElementById("btnSell").style.background = '#11ABB0';
+            }
+    }
+
+    function calcRateSell() {
+	  if (parseFloat(document.getElementById("totalSellValue").value) > parseFloat(document.getElementById("totalSellValue").value).toFixed(decimalPlaces)) {
+	     document.getElementById("totalSellValue").style.color = 'red';
+	  } else {
+         document.getElementById("totalSellValue").style.color = 'black';	  
+	  } 
+      if (document.getElementById("totalSellValue").value > 0) { 
+          if ((parseFloat(document.getElementById("totalSellValue").value) < (2**bE)) && (parseFloat(document.getElementById("amountSellValue").value) < (2**bE))) {
+              document.getElementById('priceSellValue').value = parseFloat(document.getElementById("amountSellValue").value/document.getElementById("totalSellValue").value).toFixed(9);  
+          } else {
+              document.getElementById('priceSellValue').value = 0; 
+          }
+      }   
+      calcAjustSell(); 
+    }
+
+    function calcTotalSell() {
+	  if (parseFloat(document.getElementById("amountSellValue").value) > parseFloat(document.getElementById("amountSellValue").value).toFixed(decimalPlaces)) {
+	     document.getElementById("amountSellValue").style.color = 'red';
+	  } else {
+         document.getElementById("amountSellValue").style.color = 'black';	  
+	  } 
+	  if (parseFloat(document.getElementById("priceSellValue").value) > parseFloat(document.getElementById("priceSellValue").value).toFixed(9)) {
+	     document.getElementById("priceSellValue").style.color = 'red';
+	  } else {
+         document.getElementById("priceSellValue").style.color = 'black';	  
+	  }	
+      if (document.getElementById("priceSellValue").value > 0) {
+          tBig = parseFloat(document.getElementById("amountSellValue").value/document.getElementById('priceSellValue').value).toFixed(decimalPlaces);
+          if ((tBig < (2**bE)) && (parseFloat(document.getElementById("amountSellValue").value) < (2**bE))) {
+            document.getElementById("totalSellValue").value = tBig;
+          } else {
+             document.getElementById("totalSellValue").value = 0;      
+          }
+      }
+      calcAjustSell();     
+    }
+
+    function sendFillOrder() {      
+       orderId = document.getElementById("orderFillId").value;
+       baseAddr = document.getElementById("orderBaseAddr").value;
+       pairAddr = document.getElementById("orderPairAddr").value;
+       rawRate = document.getElementById("orderRawRate").value;
+       orderPairDecimals = document.getElementById("orderPairDecimals").value;
+       rawAmountFill = document.getElementById("orderFillValue").value*(10**orderPairDecimals);
+       exchangeContract.fillOrder(orderId, baseAddr, pairAddr, rawRate, rawAmountFill, {value:actionFee,}, (err, transactionId) => {
+           printStatus(err, transactionId);        
+       }); 
+      document.getElementById("orderFillForm").style.display = 'none';
+    }
+
+    function cancelFillOrder() {
+      document.getElementById("orderFillForm").style.display = 'none';
+    }
+
+    function showFillOrder(orderId, rate, amount, baseDecimals, pairDecimals, type) {
+      if (type==1) {       
+       document.getElementById("orderBaseAddr").value = document.getElementById("tkaddress").value; 
+       document.getElementById("orderPairAddr").value = document.getElementById("tkpairaddress").value;
+       document.getElementById('orderIHave').value = pairName;
+       document.getElementById('orderIWant').value = baseName;
+       document.getElementById('baseAction').innerText = 'Sending: ';
+       document.getElementById('pairAction').innerText = 'Getting: ';
+       document.getElementById('orderGetting').value = amount/(10**baseDecimals);
+	   document.getElementById('orderPairDecimals').value = pairDecimals;
+       document.getElementById('orderFillValue').value = (((amount/(10**baseDecimals))/rate)*(10**9));
+      } else {
+       document.getElementById("orderBaseAddr").value = document.getElementById("tkpairaddress").value; 
+       document.getElementById("orderPairAddr").value = document.getElementById("tkaddress").value;
+       document.getElementById('orderIHave').value = baseName;
+       document.getElementById('orderIWant').value = pairName;
+       document.getElementById('baseAction').innerText = 'Sending: ';
+       document.getElementById('pairAction').innerText = 'Getting: ';
+       document.getElementById('orderGetting').value = amount/(10**pairDecimals);
+	   document.getElementById('orderPairDecimals').value = baseDecimals;
+       document.getElementById('orderFillValue').value = (((amount/(10**pairDecimals))/rate)*(10**9));
+      }
+     document.getElementById('orderFillId').value = orderId;
+     document.getElementById('orderRawRate').value = rate; 
+     document.getElementById('orderRate').value = rate/(10**9);
+     document.getElementById("orderFillForm").style.display = 'block';
+    }
+
+    function calcOrderGetting() {
+       var amount = document.getElementById('orderFillValue').value; 
+       var rate = document.getElementById('orderRawRate').value; 
+       document.getElementById('orderGetting').value = ((amount*rate)/(10**9));
+    }
+
+    function sendTokenLike(_token) {
+      exchangeContract.tokenLike(_token, (err, transactionId) => {
+        printStatus(err, transactionId);
+      });
+    }
+
+    function sendTokenDislike(_token) {
+      exchangeContract.tokenDislike(_token, (err, transactionId) => {
+        printStatus(err, transactionId); 
+      });
+    }
+
+    function getERC20TokenBalance(tokenAddress, walletAddress, callback) {       
+      let contract = web3.eth.contract(standardERC20ABI).at(tokenAddress);
+      contract.balanceOf(walletAddress, (error, balance) => {
+        contract.decimals((error, decimals) => {
+          balance = balance.div(10**decimals).toFixed(decimalPlaces);          
+          callback(balance,decimals);
+        });        
+      });    
+    }
+
+    function cancelOrder(orderId,mode) {
+       if (mode == 1) {
+         baseToken = addr;
+         pairToken = pairAddr;
+       } else {
+         baseToken = pairAddr;
+         pairToken = addr;
+       } 
+       exchangeContract.cancelOrder(orderId, baseToken, pairToken, {gas:120000,}, (err, transactionId) => {
+         printStatus(err, transactionId);        
+       }); 
+    }
+
+    function cancelLink(addressOwner,orderId,mode,cancelLbl) {
+      asyncElmLoaded = asyncElmLoaded+1;
+      if ((web3.eth.accounts[0]/addressOwner == 1) || (cancelLbl == 'Garbage')) {        
+        if (cancelLbl == 'Cancel') {
+           title = 'Your order, save action fee, cancel order before remove funds or allowance'; 
+        } else {
+           title = 'Click to collect garbage';
+        }
+        return '<button title="'+title+'" class="cancelBtn" onclick="cancelOrder('+orderId+','+mode+')">'+cancelLbl+'</button>';              
+      } else {        
+        return "";        
+      }
+    }
+
+    function getAllowance(tokenAddressBase, tokenAddressPair, from, to, i, addressOwner, pre, mode, decimals, amount) {   
+      contractPre = web3.eth.contract(standardERC20ABI).at(tokenAddressPair);
+        contractPre.allowance(from, to, (err, allowancePre1) => {           
+           if (allowancePre1 <= 0) {
+		     cancelLbl = 'Garbage';
+             document.getElementById(pre+'pairallowance'+i).parentNode.setAttribute('class','garbageRow');    
+             document.getElementById(pre+'pairallowance'+i).parentNode.setAttribute('title','Collect this garbage and get action fee, reason low allowance'); 
+           } else if ((amount/allowancePre1) > 1) {
+		     cancelLbl = 'Garbage'; 
+             document.getElementById(pre+'pairallowance'+i).parentNode.setAttribute('class','garbageRow');   
+             document.getElementById(pre+'pairallowance'+i).parentNode.setAttribute('title','Collect this garbage and get action fee, reason low allowance'); 
+		  } else {
+		     cancelLbl = 'Cancel';             
+		  }
+           document.getElementById(pre+'pairallowance'+i).innerHTML = allowancePre1.div(10**decimals).toFixed(decimalPlaces)+' '+cancelLink(addressOwner,i,mode,cancelLbl);
+          asyncElmLoaded = asyncElmLoaded+1;
+      });    
+    }
+
+    function getAllowanceAccount(tokenAddress, from, container) {
+      let contract = web3.eth.contract(standardERC20ABI).at(tokenAddress);
+      contract.allowance(from, exchangeAddr, (error, allowance) => {
+        contract.decimals((error, decimals) => {
+          document.getElementById(container).value = allowance.div(10**decimals);
+        });        
+      });    
+    }
+
+    function getBalance(tokenAddress, walletAddress,i,pre,mode,amount) {     
+      getERC20TokenBalance(tokenAddress, walletAddress, (balance,decimals) => {
+           asyncElmLoaded = asyncElmLoaded+1; 
+	       if (amount > balance*(10**decimals)) {
+		     cancelLbl = 'Garbage'; 
+			 document.getElementById(pre+'pairbalance'+i).innerHTML = parseFloat(balance).toFixed(decimalPlaces)+' '+cancelLink(walletAddress,i,mode,cancelLbl);
+             document.getElementById(pre+'pairbalance'+i).parentNode.setAttribute('class','garbageRow');   
+             document.getElementById(pre+'pairallowance'+i).parentNode.setAttribute('title','Collect this garbage and get action fee, reason low balance');                           
+		  } else {
+		     document.getElementById(pre+'pairbalance'+i).innerHTML = parseFloat(balance).toFixed(decimalPlaces);
+		  }              
+      })              
+    }
+
+    function getMyBalance(tokenAddress, walletAddress, element) {     
+      getERC20TokenBalance(tokenAddress, walletAddress, (balance) => {
+         document.getElementById(element).value = parseFloat(balance).toFixed(decimalPlaces);     
+      })              
+    }
+
+    function getMyBalanceLabel(tokenAddress, walletAddress, element) {     
+      getERC20TokenBalance(tokenAddress, walletAddress, (balance) => {
+         document.getElementById(element).innerText = parseFloat(balance).toFixed(decimalPlaces);     
+      })              
+    }
+    
+    function getEthBalanceLabel(account,element) {
+        web3.eth.getBalance(account, (err, balance) => {
+          document.getElementById(element).innerText = web3.fromWei(balance).toFixed(decimalPlaces);
+        });
+    }
+
+
+    function sendRegisterToken() {
+       token = document.getElementById('registerBaseCoin').value;
+       exchangeContract.registerToken(token, {value:registerFee, gas:250000,}, (err, transactionId) => {
+          printStatus(err, transactionId);        
+       }); 
+    }
+
+    function sendCreateMarket() {
+       baseToken = document.getElementById('baseCoin').value;
+       pairToken = document.getElementById('pairAddr').value;
+       exchangeContract.createMarket(baseToken, pairToken, {value: marketFee, gas:200000,}, (err, transactionId) => {
+         printStatus(err, transactionId);        
+       }); 
+    }
+
+    function approveExchange(addressCoin,inputElm,decimals) {             
+        const amountTkn = document.getElementById(inputElm).value*(10**decimals);  
+        contractToken = web3.eth.contract(standardERC20ABI).at(addressCoin);
+        contractToken.approve(exchangeAddr, amountTkn, {
+          gas: 100000,          
+        }, (err, transactionId) => {
+           printStatus(err, transactionId);
+        });
+      }   
+
+    function sortOrders(type,desc) {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById(type);
+        switching = true;
+        while (switching) {
+          switching = false;
+          rows = table.rows;
+          for (i = 0; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i+1].getElementsByTagName("TD")[1];
+            y = rows[i].getElementsByTagName("TD")[1];
+            xa = ("0000000000000000000" + x.innerHTML.toLowerCase()).slice(-19).replace(/[.]+/g, '')+'r9';
+            ya = ("0000000000000000000" + y.innerHTML.toLowerCase()).slice(-19).replace(/[.]+/g, '')+'r1';
+            if (desc) {
+              if (xa > ya) {
+                shouldSwitch = true;
+                break;
+              }
+            } else {
+              if (xa < ya) {
+                shouldSwitch = true;
+                break;
+              }
+            }      
+          }
+          if (shouldSwitch) {
+             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+             switching = true;
+          }
+        }
+    }
+
+
+  function resetLikes() {
+      document.getElementById('likeBaseVotes').innerText = '0';
+      document.getElementById('dislikeBaseVotes').innerText = '0';
+      document.getElementById('likePairVotes').innerText = '0';
+      document.getElementById('dislikePairVotes').innerText = '0';
+  }
+
+  function getLikesBase() {
+    resetLikes(); 
+    exchangeContract.tokens.call(document.getElementById("tkaddress").value, function (err,token) {   
+      document.getElementById('likeBaseVotes').innerText = token[4];
+      document.getElementById('dislikeBaseVotes').innerText = token[5];          
+    });
+  }
+     
+  function getLikesPair() {
+    document.getElementById('likePairVotes').innerText = '0';
+    document.getElementById('dislikePairVotes').innerText = '0';
+    exchangeContract.tokens.call(document.getElementById("tkpairaddress").value, function (err,token) {   
+      document.getElementById('likePairVotes').innerText = token[4];
+      document.getElementById('dislikePairVotes').innerText = token[5];          
+    }); 
+  }
+
+  function clearFields() {
+      document.getElementById("priceSellValue").value = 0;
+      document.getElementById("priceBuyValue").value = 0;
+      document.getElementById("amountSellValue").value = 0;
+      document.getElementById("amountBuyValue").value = 0;
+      document.getElementById("totalSellValue").value = 0;
+      document.getElementById("totalBuyValue").value = 0;
+      document.getElementById("myBaseBalance").value = 0;
+      document.getElementById("myPairBalance").value = 0;
+      document.getElementById("typeSell").innerHTML = '';
+      document.getElementById("typeBuy").innerHTML = '';
+      document.getElementById("myPairBalance").value = 0;
+  }
+
+  function listOrders(clear) {
+    var html;
+    var i;
+    loading = true;
+    asyncElmDetected = 0;
+    asyncElmLoaded = 0;
+      if (clear) {
+         clearFields(); 
+         setCookie("baseDefaultAddr",document.getElementById("tkaddress").value,10);
+         setCookie("pairDefaultAddr",document.getElementById("tkpairaddress").value,10);        
+      } else {
+        document.getElementById("typeSell").innerHTML = '';
+        document.getElementById("typeBuy").innerHTML = '';
+      }
+      addr = document.getElementById("tkaddress").value; 
+	  baseName = document.getElementById("tkaddress").options[document.getElementById("tkaddress").selectedIndex].text;	
+      pairAddr = document.getElementById("tkpairaddress").value;
+      pairName = document.getElementById("tkpairaddress").options[document.getElementById("tkpairaddress").selectedIndex].text;	  
+	  exchangeContract.tokens.call(pairAddr, function (err,token) {                      
+          pairDecimals = token[3];
+          pairSymbol = token[2];  		 
+          getAllowanceAccount(pairAddr,web3.eth.accounts[0],'approvePairValue');
+      });
+      getLikesPair();   	
+      getMyBalance(addr,web3.eth.accounts[0], 'myBaseBalance'); 
+      getMyBalance(pairAddr,web3.eth.accounts[0], 'myPairBalance');   
+      document.getElementById("btnApproveBase").innerText = baseName;
+      document.getElementById("btnApprovePair").innerText = pairName;     
+      document.getElementById("btnApproveBase").title = 'Approve value to '+baseName;
+      document.getElementById("btnApprovePair").title = 'Approve value to '+pairName;   
+      document.getElementById('baseExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+addr;
+      document.getElementById('pairExplorerLink').href = 'https://'+ropstenDomain+'etherscan.io/address/'+pairAddr;
+      document.getElementById("sellHeader").innerHTML = '<td>THEY OFFER '+baseName+'</td><td class="rateCol"><span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',false)">RATE/SORT</span></td><td class="fillCol"><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+pairName+'</td><td>FUNDS: '+baseName+'</td><td>ALLOWANCE '+baseName+'</td>';
+      document.getElementById("buyHeader").innerHTML =  '<td>THEY OFFER '+pairName+'</td><td class="rateCol"><span style="cursor:pointer;" onclick="sortOrders(\'typeSell\',false);sortOrders(\'typeBuy\',false)">RATE/SORT</span></td><td class="fillCol"><span style="cursor:pointer;" onclick="listOrders(false)">REFRESH</span></td><td>THEY WANTS '+baseName+'</td><td>FUNDS: '+pairName+'</td><td>ALLOWANCE '+pairName+'</td>';
+      if ((addr != "SELECT") && (pairAddr != "SELECT")) {         
+        getAllowanceAccount(addr,    web3.eth.accounts[0],'approveBaseValue');                        
+        document.getElementById('pairSymbolSell').innerText = 'SEND '+baseName;
+        document.getElementById("pairSymbolSellPlaced").innerText = 'TO GET '+pairName;  
+        document.getElementById('pairSymbolBuy').innerText  = 'SEND '+pairName; 
+        document.getElementById("pairSymbolBuyPlaced").innerText = 'TO GET '+baseName;  	
+        exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
+           ordersCount = market[0];
+		   ordersCountOldA = parseInt(ordersCount);
+           donesCountOldA  = parseInt(market[1]);
+           asyncElmDetected = asyncElmDetected+(ordersCount*3);
+           for (i=1; i <= ordersCount; i++) {
+               exchangeContract.getOrders(addr, pairAddr, i, function (err, orders) {
+                     if (orders[1] == web3.eth.accounts[0]) {
+                        fillLbl = 'YOU';
+                     } else {
+                        fillLbl = 'FILL';
+                     }                             
+                     document.getElementById("typeSell").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**baseDecimals)).toFixed(decimalPlaces)+'</td><td class="rateCol">'+(orders[2]/(10**9)).toFixed(9)+'</td><td class="fillCol"><button class="fillBtn" id="fillBtna'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 1)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**baseDecimals))/orders[2])*(10**9)).toFixed(decimalPlaces)+'</td><td id="apairbalance'+orders[0]+'">'+getBalance(addr,orders[1],orders[0],'a',1,orders[3])+'</td><td id="apairallowance'+orders[0]+'">'+getAllowance(pairAddr,addr,orders[1],exchangeAddr,orders[0], orders[1],'a',1,baseDecimals,orders[3])+'</td></tr>';
+               });   
+           }
+        });    
+        exchangeContract.getPairByAddr(pairAddr, addr,  function (err,market) {
+           ordersCount = market[0];
+		   ordersCountOldB = parseInt(ordersCount);
+           donesCountOldB  = parseInt(market[1]);
+           asyncElmDetected = asyncElmDetected+(ordersCount*3);
+           if (market[2]) {
+                
+           }
+           for (i=1; i <= ordersCount; i++) {
+               exchangeContract.getOrders(pairAddr, addr, i, function (err, orders) {
+                     if (orders[1] == web3.eth.accounts[0]) {
+                        fillLbl = 'YOU';
+                     } else {
+                        fillLbl = 'FILL';
+                     }                               
+                     document.getElementById("typeBuy").innerHTML += '<tr title="Tradeable order"><td title="'+orders[1]+'">'+(orders[3]/(10**pairDecimals)).toFixed(decimalPlaces)+'</td><td class="rateCol">'+(1/(orders[2]/(10**9))).toFixed(9)+'</td><td class="fillCol"><button class="fillBtn" id="fillBtnb'+i+'" onclick="showFillOrder('+orders[0]+', '+orders[2]+', '+orders[3]+', '+baseDecimals+', '+pairDecimals+', 0)">'+fillLbl+'</button></td><td>'+(((orders[3]/(10**pairDecimals))/orders[2])*(10**9)).toFixed(decimalPlaces)+'</td><td id="bpairbalance'+orders[0]+'">'+getBalance(pairAddr,orders[1],orders[0],'b',0,orders[3])+'</td><td id="bpairallowance'+orders[0]+'">'+getAllowance(addr,pairAddr,orders[1],exchangeAddr,orders[0], orders[1],'b',0,pairDecimals,orders[3])+'</td></tr>';
+               });   
+           }
+        });                   
+     } else {
+       document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
+     }
+     listOrdersDones();    
+  }
+
+  function listOrdersDones() {
+    var html;
+    var i;
+      document.getElementById("typeSellDones").innerHTML = '';
+      document.getElementById("typeBuyDones").innerHTML = '';
+      addr = document.getElementById("tkaddress").value; 
+      pairAddr = document.getElementById("tkpairaddress").value;
+      document.getElementById("sellHeaderDones").innerHTML = '<td>'+baseName+'</td><td><span>RATE</span></td><td>DATE</td>';
+      document.getElementById("buyHeaderDones").innerHTML =  '<td>'+pairName+'</td><td><span>RATE</span></td><td>DATE</td>';
+      if ((addr != "SELECT") && (pairAddr != "SELECT")) {   
+        exchangeContract.getPairByAddr(addr, pairAddr,  function (err,market) {
+           ordersCount = market[1];
+           document.getElementById('donesCount1').innerText = ordersCount;
+           start = ordersCount-4; // last 5
+           if (start < 1) {start = 1} 
+           for (i=start; i <= ordersCount; i++) {
+               exchangeContract.getDones(addr, pairAddr, i, function (err, orders) {                              
+                    document.getElementById("typeSellDones").innerHTML += '<tr><td>'+(orders[2]/(10**pairDecimals)).toFixed(decimalPlaces)+'</td><td>'+(orders[4]/(10**9)).toFixed(5)+'</td><td>'+orders[3]+'</td></tr>';
+               });   
+           }
+        });    
+        exchangeContract.getPairByAddr(pairAddr, addr,  function (err,market) {
+           ordersCount = market[1];
+           document.getElementById('donesCount2').innerText = ordersCount;
+           start = ordersCount-4; // last 5
+           if (start < 1) {start = 1} 
+           for (i=start; i <= ordersCount; i++) {
+               exchangeContract.getDones(pairAddr, addr, i, function (err, orders) {                           
+                     document.getElementById("typeBuyDones").innerHTML += '<tr><td>'+(orders[2]/(10**baseDecimals)).toFixed(decimalPlaces)+'</td><td>'+(orders[4]/(10**9)).toFixed(decimalPlaces)+'</td><td>'+orders[3]+'</td></tr>';
+               });   
+           }
+        });                   
+     }
+  }
+
+  function listTokenMarkets() {
+    var html;
+    var i;      
+      clearFields();
+      addr = document.getElementById("tkaddress").value;  	  
+      baseName = document.getElementById("tkaddress").options[document.getElementById("tkaddress").selectedIndex].text;	   
+      exchangeContract.tokens.call(addr, function (err,token) {                      
+          baseDecimals = token[3];
+         baseSymbol = token[2];  		 
+      });    	       
+      getLikesBase();	      
+      document.getElementById("baseCoinTitle").innerText = baseName;
+      document.getElementById('baseCoin').value = addr;
+      document.getElementById("tkpairaddress").innerHTML = "";      
+      if (addr != "SELECT") {      
+        getMyBalance(addr,web3.eth.accounts[0], 'myBaseBalance');  
+        exchangeContract.tokens.call(addr, function (err,token) {
+           baseDecimals = token[3]; 
+           baseSymbol = token[2];			
+           marketCount = token[6];  
+           if (token[6] == 0) {
+               document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
+               document.getElementById("tkpairaddress").selectedIndex = 1;
+           }      
+           for (i=1; i <= marketCount; i++) {
+             document.getElementById("tkpairaddress").innerHTML = "<option selected title='SELECT' value='SELECT'>SELECT MARKET</option>";
+             exchangeContract.getPairByIndex.call(addr, i, function (err,market) {         
+               exchangeContract.tokens.call(market[0], function (err,token) { 
+                  if (pairDefault.toUpperCase() == token[0].toUpperCase()) {
+                    document.getElementById("tkpairaddress").innerHTML += "<option selected title='"+token[0]+"' value='"+token[0]+"'>"+token[1].toUpperCase()+"</option>"; 
+                    listOrders(true); 
+                  } else {
+                    document.getElementById("tkpairaddress").innerHTML += "<option title='"+token[0]+"' value='"+token[0]+"'>"+token[1].toUpperCase()+"</option>";
+                  }                                     
+               });    
+             });         
+           }
+        });
+     } else {
+       document.getElementById("tkpairaddress").innerHTML = "<option title='SELECT' value='SELECT'>NO MARKET</option>";
+       document.getElementById("tkpairaddress").selectedIndex = 1;
+     }          
+  }
+
+  function listTokens(container) {
+    document.getElementById(container).innerHTML += "<option selected title='SELECT' value='SELECT'>SELECT TOKEN</option>";
+    exchangeContract.indexCount((error,indexCount) => {
+      var html;
+      var i;
+      for (i = 1; i <= indexCount; i++) {         
+            exchangeContract.index.call(i, function (err,addr) {
+              exchangeContract.tokens.call(addr, function (err,token) {    
+                if (baseDefault.toUpperCase() == token[0].toUpperCase()) {
+                    document.getElementById(container).innerHTML += "<option selected title="+token[0]+" value="+token[0]+">"+token[1].toUpperCase()+"</option>";
+                    listTokenMarkets();
+                } else {
+                  document.getElementById(container).innerHTML += "<option title="+token[0]+" value="+token[0]+">"+token[1].toUpperCase()+"</option>";
+                }                         
+              });            
+            });           
+      }       
+    });
+  }
+
+    function getFees() {
+      exchangeContract.registerFee.call((err, result) => {
+         document.getElementById('listTokenFeeLabel').innerText = result.div(10**18).toFixed(decimalPlaces)+' ETH';
+         registerFee = result;
+      });
+      exchangeContract.openMarketFee.call((err, result) => {
+         document.getElementById('createMarketFeeLabel').innerText = result.div(10**18).toFixed(decimalPlaces)+' ETH';
+         marketFee = result;
+      });
+      exchangeContract.actionFee.call((err, result) => {
+         document.getElementById('actionFeeLabel').innerText = 'Action Fee: '+(result/(10**18)).toFixed(decimalPlaces)+' ETH';
+         actionFee = result;
+      });
+    }
+</script>
+
+</body>
+</html>
