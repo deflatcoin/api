@@ -448,7 +448,7 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
     }
 </pre>
 
-<b>createMarket</b>
+<b>Create Market</b>
 
 - Contract Side:
 
