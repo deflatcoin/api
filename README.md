@@ -437,13 +437,56 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 
 7- exists: Formal, always true; 
 
-- Web Side
+- Web Side:
 
 <pre>
     function sendRegisterToken() {
        token = document.getElementById('registerBaseCoin').value;
        exchangeContract.registerToken(token, {value:registerFee, gas:250000,}, (err, transactionId) => {
           printStatus(err, transactionId);        
+       }); 
+    }
+</pre>
+
+<b>createMarket</b>
+
+- Contract Side:
+
+<pre>
+    function createMarket(address _token, address _tokenPair) public payable {
+      require(msg.value >= openMarketFee, "Open Market Fee Very Low");
+      require(exists[_token] && exists[_tokenPair],"token or tokenPair not listed");     
+      require(!tokens[_token].markets[_tokenPair].exists,"Market already exists");
+      require(tokens[_token].tokenBase != _tokenPair,"Not allowed token = tokenPair");
+      tokens[_token].marketsCount = tokens[_token].marketsCount+1;
+      tokens[_token].marketIndex[tokens[_token].marketsCount] = _tokenPair;
+      tokens[_token].markets[_tokenPair].tokenPair = _tokenPair;
+      tokens[_token].markets[_tokenPair].ordersCount = 0;
+      tokens[_token].markets[_tokenPair].donesCount = 0;
+      tokens[_token].markets[_tokenPair].exists = true;
+    }
+</pre>
+
+1- _token and _tokenPair: Pair market;
+
+2- openMarketFee: Fee value for market creation;
+
+3- marketsCount: Increase count of markets of base token;
+
+4- marketIndex: Make marketsCount as index of current market;
+
+5- ordersCount and donesCount: Set vars with 0;
+
+6- exists: Formal always true after creation;
+
+- Web Side:
+
+<pre>
+    function sendCreateMarket() {
+       baseToken = document.getElementById('baseCoin').value;
+       pairToken = document.getElementById('pairAddr').value;
+       exchangeContract.createMarket(baseToken, pairToken, {value: marketFee, gas:200000,}, (err, transactionId) => {
+         printStatus(err, transactionId);        
        }); 
     }
 </pre>
