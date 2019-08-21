@@ -438,3 +438,12 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 7- exists: Formal, always true; 
 
 - Web Side
+
+<pre>
+    function sendRegisterToken() {
+       token = document.getElementById('registerBaseCoin').value;
+       exchangeContract.registerToken(token, {value:registerFee, gas:250000,}, (err, transactionId) => {
+          printStatus(err, transactionId);        
+       }); 
+    }
+</pre>
