@@ -399,3 +399,42 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
       }
     })
 </pre>
+
+<b>Token Register</b>
+
+- Contract Side:
+
+<pre>
+    function registerToken(address _token) public payable {
+       require((msg.sender == owner) || (msg.value >= registerFee), "Register Fee Very Low");
+       erc20 refToken = erc20(_token);
+       if (!exists[_token]) {            
+            indexCount = indexCount+1;
+            index[indexCount] = _token; 
+            tokens[_token].tokenBase = _token;  
+            tokens[_token].name = refToken.name();		
+            tokens[_token].symbol = refToken.symbol();
+            tokens[_token].decimals = refToken.decimals();			
+            tokens[_token].likesCount = 0;
+            tokens[_token].dislikesCount = 0;
+            tokens[_token].marketsCount = 0; 		
+            exists[_token] = true;            
+       }	             
+    }
+</pre>
+
+1- address: Token to register;
+
+2- refToken: Get data from token contract;
+
+3- indexCount: Increase token count;
+
+4- index[]: Define tokenCount as token index;
+
+5- name, symbol and decimal: from refToken contract;
+
+6- liskesCount, dislikes and marketsCount: Start with 0;
+
+7- exists: Formal, always true; 
+
+- Web Side
