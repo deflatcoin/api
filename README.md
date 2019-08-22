@@ -32,7 +32,53 @@ HTML Container https://github.com/deflatcoin/decentralization/blob/master/html-c
 
 ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.js
 
-<b>Getting the token list from the database JS</b>
+<b>Getting the token list from the database</b>
+
+- Contract side Solidity:
+
+<pre>
+    function getTokenByAddr(address _addr) public view returns (string _name, 
+                                                                string _symbol, 
+                                                                uint _decimals, 
+                                                                uint _marketsCount) {
+       return (tokens[_addr].name,
+               tokens[_addr].symbol,
+               tokens[_addr].decimals,
+               tokens[_addr].marketsCount);
+    }
+    
+    function getTokenByIndex(uint _index) public view returns (address _tokenBase, 
+                                                               string _name, 
+                                                               string _symbol, 
+                                                               uint _decimals, 
+                                                               uint _marketsCount) {
+       return (tokens[index[_index]].tokenBase, 
+               tokens[index[_index]].name,
+               tokens[index[_index]].symbol,
+               tokens[index[_index]].decimals,
+               tokens[index[_index]].marketsCount);
+    }
+</pre>
+
+1- address: Token address;
+
+2- name: Friendly token name, recovered from contract;
+
+3- symbol: Short token name, recovered from contract;
+
+4- decimals: Decimal places of token, recovered from contract;
+
+5- likes count & dislikes count: token reputation for gateway filter (optional);
+
+6- markets count: Incemented to each market created;
+
+7- marketIndex: Index position to address of market struct;
+
+8- markets: market struct mapped by address;
+
+9- voteStatus: indicates if an account has already voted for the token;
+
+- Web side JS:
 
 <pre>
   function listTokens(container) {
@@ -56,7 +102,10 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
   }
 </pre>
 
-<b>Getting the Market list from the database JS</b>
+<b>Getting the Market list from the database</b>
+
+- Web side JS:
+
 <pre>
   function listTokenMarkets() {
     var html;
@@ -103,7 +152,9 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
   }
 </pre>
 
-<b>Getting order list JS</b>
+<b>Getting order list</b>
+
+- Web side JS:
 
 <pre>
   function listOrders(clear) {
@@ -185,7 +236,9 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
   }
 </pre>
 
-<b>Getting done list JS</b>
+<b>Getting done list</b>
+
+- Web side JS
 
 <pre>
   function listOrdersDones() {
@@ -224,7 +277,9 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
   }
 </pre>
 
-<b>Starting App JS</b>
+<b>Starting App</b>
+
+- Web side JS:
 
 <pre>
     const urlParams = new URLSearchParams(window.location.search);
