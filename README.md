@@ -32,6 +32,7 @@ HTML Container https://github.com/deflatcoin/decentralization/blob/master/html-c
 
 ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.js
 
+
 <b>Getting the token list from the database</b>
 
 - Contract side Solidity:
@@ -104,6 +105,38 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 
 <b>Getting the Market list from the database</b>
 
+- Contract side Solidity:
+
+<pre>
+    function getPairByAddr(address _base, address _pairAddr) public view returns (uint _ordersCount, uint _donesCount, bool _exists) {        
+       return (tokens[_base].markets[_pairAddr].ordersCount,
+               tokens[_base].markets[_pairAddr].donesCount,
+               tokens[_base].markets[_pairAddr].exists);
+    }
+</pre>
+
+1- _base: token base;
+
+2- _pairAddr: pair address;
+
+3- return: return count of orders and excuted orders for the given pair.
+
+<pre>
+    function getPairByIndex(address _base, uint _pairIndex) public view returns (address _tokenPair, uint _ordersCount, uint _donesCount) {
+       return (tokens[_base].markets[tokens[_base].marketIndex[_pairIndex]].tokenPair,
+               tokens[_base].markets[tokens[_base].marketIndex[_pairIndex]].ordersCount,
+               tokens[_base].markets[tokens[_base].marketIndex[_pairIndex]].donesCount);
+    }
+</pre>
+	
+1- _base: token base;
+
+2- _pairAddr: pair address
+
+3- return: return count of orders and excuted orders for the given pair;
+
+4- use with marketsCount in token data to get list of markets for a given pair.
+
 - Web side JS:
 
 <pre>
@@ -153,6 +186,26 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 </pre>
 
 <b>Getting order list</b>
+
+- Contract side Solidity:
+
+<pre>
+    function getOrders(address _base, address _pair, uint _orderIndex) public view returns (uint _orderId,
+                                                                                            address _owner,
+                                                                                            uint _rate,
+                                                                                            uint _amount,
+                                                                                            bool _sell) {
+       return (tokens[_base].markets[_pair].orders[_orderIndex].orderId,
+               tokens[_base].markets[_pair].orders[_orderIndex].orderOwner,
+               tokens[_base].markets[_pair].orders[_orderIndex].rate,
+               tokens[_base].markets[_pair].orders[_orderIndex].amount,
+               tokens[_base].markets[_pair].orders[_orderIndex].sell);
+    }
+</pre>
+
+1- Get data from order record;
+
+2- Use with ordersCount to get list of orders.
 
 - Web side JS:
 
@@ -237,6 +290,26 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 </pre>
 
 <b>Getting done list</b>
+
+- Contract side Solidity
+
+<pre>
+    function getDones(address _base, address _pair, uint _doneIndex) public view returns (uint _orderId,
+                                                                                          address _fillOwner,
+                                                                                          uint _fillAmount,
+                                                                                          uint _fillDate,
+                                                                                          uint _rate) {
+       return (tokens[_base].markets[_pair].dones[_doneIndex].orderId,
+               tokens[_base].markets[_pair].dones[_doneIndex].fillOwner,
+               tokens[_base].markets[_pair].dones[_doneIndex].fillAmount,
+               tokens[_base].markets[_pair].dones[_doneIndex].fillDate,
+               tokens[_base].markets[_pair].dones[_doneIndex].rate);
+    }	
+</pre>
+
+1- Get data from executed order record;
+
+2- Use with donesCout to get list of executed orders.
 
 - Web side JS
 
@@ -457,7 +530,7 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 
 <b>Token Register</b>
 
-- Contract Side:
+- Contract Side Solidity:
 
 <pre>
     function registerToken(address _token) public payable {
@@ -492,7 +565,7 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 
 7- exists: Formal, always true; 
 
-- Web Side:
+- Web Side JS:
 
 <pre>
     function sendRegisterToken() {
@@ -505,7 +578,7 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 
 <b>Create Market</b>
 
-- Contract Side:
+- Contract Side Solidity:
 
 <pre>
     function createMarket(address _token, address _tokenPair) public payable {
@@ -534,7 +607,7 @@ ABI Block https://github.com/deflatcoin/decentralization/blob/master/abi-block.j
 
 6- exists: Formal always true after creation;
 
-- Web Side:
+- Web Side JS:
 
 <pre>
     function sendCreateMarket() {
